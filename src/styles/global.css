@@ -1,0 +1,113 @@
+@font-face {
+  font-family: 'Open Sans';
+  src: url('../assets/fonts/OpenSans-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+   src: url('../assets/fonts/OpenSans-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+   src: url('../assets/fonts/OpenSans-Bold.ttf') format('truetype');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('../assets/fonts/Inter-Regular.ttf') format('truetype');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('../assets/fonts/Inter-Medium.ttf') format('truetype');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('../assets/fonts/Inter-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('../assets/fonts/Inter-Bold.ttf') format('truetype');
+  font-weight: 700;
+}
+
+/* ===== RESET ===== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ===== ROOT ===== */
+
+html, body {
+  height: 100%;
+}
+
+/* ===== BODY ===== */
+
+body {
+  font-family: var(--font-main);
+  -webkit-font-smoothing: antialiased;
+  background: var(--bg-main);
+  color: var(--text-main);
+}
+
+/* ===== TYPOGRAPHY ===== */
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ===== LINKS ===== */
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ===== LISTS ===== */
+
+ul, ol {
+  list-style: none;
+}
+
+/* ===== INPUT ===== */
+
+input {
+  font-family: inherit;
+  border: none;
+  outline: none;
+}
+
+/* ===== MEDIA ===== */
+
+img, video {
+  max-width: 100%;
+  display: block;
+}
+
+.container {
+  padding: 20px;
+  max-width: 420px;
+  margin: 0 auto;
+}

@@ -1,0 +1,39 @@
+/* ===== PAGE ===== */
+
+.letter-page {
+  padding: 20px;
+}
+
+/* ===== CARD ===== */
+
+.letter-wrapper {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  margin-top: 16px;
+
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* ===== TITLE ===== */
+
+.letter-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+/* ===== DESCRIPTION ===== */
+
+.letter-description {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 16px;
+}
+
+/* ===== VIDEO ===== */
+
+.video-player {
+  width: 100%;
+  border-radius: 12px;
+}

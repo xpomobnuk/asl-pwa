@@ -1,0 +1,81 @@
+/* ===== PAGE ===== */
+
+.alphabet-page {
+  min-height: 100vh;
+  background: white;
+  padding-top: 20px;
+}
+
+/* ===== HEADER ===== */
+
+.alphabet-header {
+  margin-bottom: 20px;
+}
+
+.alphabet-title {
+  font-size: 30px;
+  font-weight: 700;
+  margin-top: 20px;
+}
+
+/* ===== VIDEO ===== */
+
+.alphabet-video-wrapper {
+  background: #f9fafb;
+  border-radius: 24px;
+  padding: 10px;
+  min-height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-bottom: 24px;
+}
+
+.alphabet-video {
+  width: 100%;
+  max-width: 360px;
+  border-radius: 20px;
+}
+
+/* ===== ACTIVE LETTER ===== */
+
+.alphabet-active-letter {
+  margin-top: 14px;
+
+  font-size: 42px;
+  font-weight: 700;
+
+  color: var(--primary);
+}
+
+/* ===== GRID ===== */
+
+.alphabet-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+}
+
+/* ===== ITEM ===== */
+
+.alphabet-item {
+  height: 34px;
+
+  border: none;
+  border-radius: 16px;
+
+  background: #f3f4f6;
+
+  font-size: 16px;
+  font-weight: 700;
+
+  transition: 0.2s;
+}
+
+/* ACTIVE */
+
+.alphabet-item.active {
+  background: var(--primary);
+  color: white;
+}

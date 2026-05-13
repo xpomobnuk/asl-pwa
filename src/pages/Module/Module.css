@@ -1,0 +1,98 @@
+/* ===== ROW ===== */
+
+.submodule-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+
+  background: white;
+  padding: 16px;
+  border-radius: 16px;
+
+  box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+  margin-bottom: 16px;
+
+  cursor: pointer;
+}
+
+/* ===== IMAGE ===== */
+
+.submodule-image {
+  width: 100%;
+  height: 145px;
+  border-radius: 12px;
+
+  background-size: cover;
+  background-position: center;
+}
+
+/* ===== CONTENT ===== */
+
+.submodule-content {
+  flex: 1;
+}
+
+/* lessons badge */
+
+.submodule-lessons {
+  font-size: 11px;
+  background: #f3f4f6;
+  padding: 4px 10px;
+  border-radius: 999px;
+  display: inline-block;
+  margin-bottom: 6px;
+  margin-top: 10px;
+}
+
+/* title */
+
+.submodule-title {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* yellow line */
+
+.submodule-line {
+  width: 40px;
+  height: 3px;
+  background: var(--yellow);
+  margin: 6px 0;
+  border-radius: 2px;
+}
+
+/* description */
+
+.submodule-description {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* ===== ARROW ===== */
+
+.submodule-arrow {
+  width: 50px;
+  height: 80px;
+
+  background: var(--yellow);
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+  font-size: 22px;
+}
+
+/* ===== STATES ===== */
+
+.submodule-row.locked {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.submodule-arrow.disabled {
+  background: #e5e7eb;
+}

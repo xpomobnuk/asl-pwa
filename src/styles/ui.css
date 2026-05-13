@@ -1,0 +1,27 @@
+.btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 50px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: var(--yellow);
+  color: white;
+}
+
+.btn-secondary {
+  background: #f3f4f6;
+  color: #111;
+}
+
+/* ===== BUTTON ===== */
+
+button {
+  font-family: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+}

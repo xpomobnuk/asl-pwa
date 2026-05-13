@@ -1,0 +1,120 @@
+.submodule {
+  background: white;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* HEADER */
+
+.submodule-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.progress {
+  flex: 1;
+  height: 6px;
+  background: #eee;
+  border-radius: 10px;
+}
+
+.progress-bar {
+  height: 100%;
+  background: var(--yellow);
+}
+
+/* VIDEO */
+
+.video {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+/* LETTER */
+
+.letter {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+/* OPTIONS */
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.option {
+  padding: 14px;
+  border-radius: 999px;
+  border: 2px solid var(--yellow);
+  cursor: pointer;
+  text-align: center;
+}
+
+.option.selected {
+  background: #fde68a;
+}
+
+.option.correct {
+  background: #22c55e;
+  color: white;
+}
+
+.option.wrong {
+  background: #ef4444;
+  color: white;
+}
+
+/* BUTTON */
+
+.next-btn {
+  margin-top: 20px;
+  width: 100%;
+  padding: 14px;
+  border-radius: 999px;
+  background: var(--primary);
+  color: white;
+  border: none;
+}
+.options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+/* .option {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+  border-radius: 16px;
+  border: 2px solid var(--yellow);
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+} */
+.option:active {
+  transform: scale(0.96);
+}
+
+.video {
+  animation: fadeVideo 0.25s ease;
+}
+
+@keyframes fadeVideo {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
