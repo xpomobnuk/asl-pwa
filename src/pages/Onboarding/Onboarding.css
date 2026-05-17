@@ -23,7 +23,7 @@
 
 .progress {
   flex: 1;
-  height: 6px;
+  height: 12px;
   background: #f3f4f6;
   border-radius: 10px;
   overflow: hidden;
@@ -95,7 +95,7 @@
 
 .onboarding-next {
   margin-top: 40px;
-  width: 100%;
+  min-width: 200px;
   padding: 14px;
 
   border-radius: 999px;
@@ -103,9 +103,12 @@
 
   background: var(--primary);
   color: white;
-
+  margin: 40px auto 0;
+  text-transform: uppercase;
   font-weight: 600;
   font-size: 14px;
+  display: flex;
+  justify-content: center;
 }
 
 .onboarding-next:disabled {

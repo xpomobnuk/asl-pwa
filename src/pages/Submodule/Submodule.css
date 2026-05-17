@@ -12,10 +12,14 @@
   gap: 10px;
   margin-bottom: 20px;
 }
+.submodule-header button{
+  font-weight: bold;
+  color: #000;
+}
 
 .progress {
   flex: 1;
-  height: 6px;
+  height: 12px;
   background: #eee;
   border-radius: 10px;
 }
@@ -30,7 +34,9 @@
 .video {
   width: 100%;
   border-radius: 12px;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
+  border: 1px solid #eee;
+  margin-top: 20px;
 }
 
 /* LETTER */
@@ -63,11 +69,13 @@
 
 .option.correct {
   background: #22c55e;
+  border-color: #22c55e;
   color: white;
 }
 
 .option.wrong {
   background: #ef4444;
+  border-color: #ef4444;
   color: white;
 }
 
@@ -75,12 +83,17 @@
 
 .next-btn {
   margin-top: 20px;
-  width: 100%;
+  min-width: 200px;
   padding: 14px;
   border-radius: 999px;
   background: var(--primary);
   color: white;
   border: none;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+  text-transform: uppercase;
 }
 .options-grid {
   display: grid;
