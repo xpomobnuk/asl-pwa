@@ -15,6 +15,10 @@ export const Dashboard = () => {
   const [userName, setUserName] = useState('')
   const [energy, setEnergy] = useState(5)
   const [xp, setXp] = useState(0)
+  const level = Math.floor(xp / 100) + 1
+  const currentLevelXp = xp % 100
+  const [completedModules, setCompletedModules] =
+  useState(0)
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -25,17 +29,23 @@ export const Dashboard = () => {
       const ref = doc(db, 'users', user.uid)
       const snap = await getDoc(ref)
 
-      if (snap.exists()) {
-        const data = snap.data()
-        setUserName(data.name || '')
+     if (snap.exists()) {
+      const data = snap.data()
 
-        setEnergy(data.energy ?? 5)
-        setXp(data.xp ?? 0)
+      setUserName(data.name || '')
 
-        setHasCompletedOnboarding(
-          data.completedOnboarding || false
-        )
-      }
+      setEnergy(data.energy ?? 5)
+      setXp(data.xp ?? 0)
+
+      const completed =
+        data.completedSubmodules ?? []
+
+      setCompletedModules(completed.length)
+
+      setHasCompletedOnboarding(
+        data.completedOnboarding || false
+      )
+    }
 
       setLoading(false)
     }
@@ -143,6 +153,22 @@ export const Dashboard = () => {
             <div className="player-stat">
 
               <div className="player-stat-icon">
+                🏆
+              </div>
+
+              <div className="player-stat-label">
+                Level
+              </div>
+
+              <div className="player-stat-value">
+                {level}
+              </div>
+
+            </div>
+
+            <div className="player-stat">
+
+              <div className="player-stat-icon">
                 ⭐
               </div>
 
@@ -158,6 +184,34 @@ export const Dashboard = () => {
 
           </div>
 
+          <div className="level-progress">
+
+            <div className="level-progress-top">
+
+              <span>
+                Level {level}
+              </span>
+
+              <span>
+                {currentLevelXp}/100 XP
+              </span>
+
+            </div>
+
+            <div className="level-track">
+
+              <div
+                className="level-fill"
+                style={{
+                  width: `${currentLevelXp}%`,
+                }}
+              />
+
+            </div>
+
+          </div>   
+
+
           {/* MODULE STATS */}
           <div className="stats-card">
 
@@ -166,7 +220,7 @@ export const Dashboard = () => {
             </div>
 
             <div className="stats-value">
-              1 / 12
+              {completedModules} / 12
             </div>
 
             <p className="stats-text">

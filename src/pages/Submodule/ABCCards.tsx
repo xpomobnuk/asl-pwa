@@ -2,12 +2,8 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './Submodule.css'
 
-import { auth, db } from '../../firebase'
-import {
-  doc,
-  getDoc,
-  updateDoc,
-} from 'firebase/firestore'
+import { completeSubmodule } from '../../utils/progress'
+import { saveReward } from '../../utils/rewards'
 
 const blocks = [
   {
@@ -193,46 +189,6 @@ export const ABCCards = () => {
   if (accuracy >= 75) {
     heroImage = '/characters/hero_2.png'
   }    
-
-
-
-
-
-
-
-  const saveReward = async () => {
-    const user = auth.currentUser
-
-    if (!user) return
-
-    try {
-      const ref = doc(db, 'users', user.uid)
-
-      const snap = await getDoc(ref)
-
-      if (!snap.exists()) return
-
-      const data = snap.data()
-
-      const currentXp = data.xp ?? 0
-      const currentEnergy = data.energy ?? 5
-
-      await updateDoc(ref, {
-        xp: currentXp + reward,
-        energy: currentEnergy - 1,
-      })
-
-      console.log(
-        `Reward saved: +${reward} XP, -1 Energy`
-      )
-
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-
-
 
 
   return (
@@ -442,8 +398,11 @@ export const ABCCards = () => {
             <button
               className="btn-primary"
               onClick={async () => {
+                await saveReward(reward)
 
-                await saveReward()
+                if (accuracy >= 90) {
+                  await completeSubmodule('abc-cards')
+                }
 
                 navigate('/')
               }}
