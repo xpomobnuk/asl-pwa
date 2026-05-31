@@ -37,6 +37,7 @@
   margin-bottom: 5px;
   border: 1px solid #eee;
   margin-top: 20px;
+  min-height: 215px;
 }
 
 /* LETTER */
@@ -129,5 +130,201 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+
+
+/* ======================================
+   RESULTS
+====================================== */
+
+.results-screen {
+  padding-top: 20px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.results-image {
+  width: 180px;
+  margin: 0 auto 24px;
+}
+
+.results-image img {
+  width: 100%;
+  display: block;
+}
+
+.results-title {
+  font-size: 34px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.results-line {
+  width: 80px;
+  height: 6px;
+
+  background: #ff8a3d;
+
+  border-radius: 999px;
+
+  margin: 16px 0 20px;
+}
+
+.results-text {
+  max-width: 320px;
+
+  text-align: center;
+
+  color: #6b7280;
+
+  line-height: 1.6;
+
+  margin-bottom: 30px;
+}
+
+/* ======================================
+   STATS
+====================================== */
+
+.results-stats {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 12px;
+
+  margin-bottom: 30px;
+}
+
+.stat-card {
+  border-radius: 20px;
+
+  padding: 18px 12px;
+
+  text-align: center;
+
+  background: #f5f5f5;
+}
+
+.stat-label {
+  font-size: 13px;
+  color: #6b7280;
+
+  margin-bottom: 10px;
+}
+
+.stat-value {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+/* ======================================
+   REWARD
+====================================== */
+
+.reward {
+  background: #fff1db;
+}
+
+.reward .stat-value {
+  color: #ff8a3d;
+}
+
+/* ======================================
+   ACCURACY COLORS
+====================================== */
+
+.red {
+  background: #ffe6e6;
+}
+
+.red .stat-value {
+  color: #e5484d;
+}
+
+.orange {
+  background: #fff0df;
+}
+
+.orange .stat-value {
+  color: #ff7a1a;
+}
+
+.green {
+  background: #e9f8e9;
+}
+
+.green .stat-value {
+  color: #2eaf5d;
+}
+
+/* ======================================
+   BUTTONS
+====================================== */
+
+.results-buttons {
+  width: 100%;
+
+  display: flex;
+  gap: 12px;
+
+  margin-top: 10px;
+}
+
+.results-buttons button {
+  flex: 1;
+}
+
+.btn-secondary {
+  border: none;
+
+  height: 56px;
+
+  border-radius: 18px;
+
+  background: #f3f4f6;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.btn-primary {
+  border: none;
+
+  height: 56px;
+
+  border-radius: 18px;
+
+  background: #ff8a3d;
+  color: white;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+/* ======================================
+   MOBILE
+====================================== */
+
+@media (max-width: 480px) {
+  .results-stats {
+    gap: 8px;
+  }
+
+  .stat-card {
+    padding: 14px 8px;
+  }
+
+  .stat-value {
+    font-size: 18px;
   }
 }

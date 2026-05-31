@@ -48,6 +48,8 @@
 .welcome-image img {
   width: 100%;
   max-width: 320px;
+  height: 50vh;
+  object-fit: contain;
 }
 
 /* BUTTON */
@@ -60,7 +62,7 @@
   border: none;
   border-radius: 999px;
 
-  background: var(--yellow);
+  background: var(--primary);
 
   color: white;
   font-size: 16px;
@@ -244,7 +246,7 @@
   background: var(--primary);
   display: inline-block;
   border-radius: 999px;
-  margin-left: 10px;
+  /* margin-left: 10px; */
 }
 
 
@@ -500,4 +502,46 @@
   font-weight: 600;
 
   cursor: pointer;
+}
+
+
+
+.player-stats {
+  display: flex;
+  gap: 12px;
+
+  margin-bottom: 20px;
+}
+
+.player-stat {
+  flex: 1;
+
+  background: #fff;
+
+  border-radius: 16px;
+
+  padding: 16px;
+
+  text-align: center;
+
+  box-shadow: 0 2px 10px rgba(0,0,0,.05);
+}
+
+.player-stat-icon {
+  font-size: 24px;
+
+  margin-bottom: 8px;
+}
+
+.player-stat-label {
+  font-size: 13px;
+
+  color: #777;
+
+  margin-bottom: 4px;
+}
+
+.player-stat-value {
+  font-size: 22px;
+  font-weight: 700;
 }

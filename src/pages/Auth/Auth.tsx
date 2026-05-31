@@ -25,7 +25,11 @@ export const Auth = () => {
 
     try {
       if (isLogin) {
-        await signInWithEmailAndPassword(auth, email, password)
+        await signInWithEmailAndPassword(
+          auth,
+          email,
+          password
+        )
       } else {
         const userCredential =
           await createUserWithEmailAndPassword(
@@ -36,11 +40,19 @@ export const Auth = () => {
 
         const user = userCredential.user
 
-        await setDoc(doc(db, 'users', user.uid), {
-          name,
-          email,
-          completedOnboarding: false,
-        })
+        await setDoc(
+          doc(db, 'users', user.uid),
+          {
+            name,
+            email,
+
+            completedOnboarding: false,
+
+            energy: 5,
+            xp: 0,
+          },
+          { merge: true }
+        )
       }
     } catch (e) {
       console.error(e)

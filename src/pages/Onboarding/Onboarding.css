@@ -126,6 +126,8 @@
 .complete-image img {
   width: 100%;
   max-width: 300px;
+  height: 50vh;
+  object-fit: contain;
 }
 .onboarding-complete {
   padding-top: 40px;

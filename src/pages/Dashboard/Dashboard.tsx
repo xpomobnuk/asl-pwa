@@ -13,6 +13,8 @@ export const Dashboard = () => {
   const [loading, setLoading] = useState(true)
   const [hasCompletedOnboarding, setHasCompletedOnboarding] = useState(false)
   const [userName, setUserName] = useState('')
+  const [energy, setEnergy] = useState(5)
+  const [xp, setXp] = useState(0)
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -26,6 +28,9 @@ export const Dashboard = () => {
       if (snap.exists()) {
         const data = snap.data()
         setUserName(data.name || '')
+
+        setEnergy(data.energy ?? 5)
+        setXp(data.xp ?? 0)
 
         setHasCompletedOnboarding(
           data.completedOnboarding || false
@@ -114,6 +119,43 @@ export const Dashboard = () => {
             <p className="dashboard-subtitle">
               Continue your ASL learning journey
             </p>
+          </div>
+
+          {/* PLAYER STATS */}
+          <div className="player-stats">
+
+            <div className="player-stat">
+
+              <div className="player-stat-icon">
+                ⚡
+              </div>
+
+              <div className="player-stat-label">
+                Energy
+              </div>
+
+              <div className="player-stat-value">
+                {energy}
+              </div>
+
+            </div>
+
+            <div className="player-stat">
+
+              <div className="player-stat-icon">
+                ⭐
+              </div>
+
+              <div className="player-stat-label">
+                XP
+              </div>
+
+              <div className="player-stat-value">
+                {xp}
+              </div>
+
+            </div>
+
           </div>
 
           {/* MODULE STATS */}
