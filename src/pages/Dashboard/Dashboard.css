@@ -2,74 +2,8 @@
   min-height: 100vh;
   background: white;
   padding-top: 40px;
+  padding-bottom: 110px !important;
 }
-
-/* ===== WELCOME ===== */
-
-.welcome-card {
-  display: flex;
-  flex-direction: column;
-}
-
-/* TITLE */
-
-.welcome-title {
-  font-size: 34px;
-  font-weight: 700;
-  line-height: 1.1;
-}
-
-/* YELLOW LINE */
-
-.welcome-line {
-  width: 70px;
-  height: 4px;
-  background: var(--yellow);
-  border-radius: 999px;
-  margin: 14px 0 20px;
-}
-
-/* TEXT */
-
-.welcome-text {
-  font-size: 16px;
-  line-height: 1.5;
-  color: #4b5563;
-}
-
-/* IMAGE */
-
-.welcome-image {
-  margin-top: 40px;
-  display: flex;
-  justify-content: center;
-}
-
-.welcome-image img {
-  width: 100%;
-  max-width: 320px;
-  height: 50vh;
-  object-fit: contain;
-}
-
-/* BUTTON */
-
-.welcome-button {
-
-  min-width: 200px;
-  height: 56px;
-  margin: 30px auto;
-  border: none;
-  border-radius: 999px;
-
-  background: var(--primary);
-
-  color: white;
-  font-size: 16px;
-  font-weight: 600;
-  text-transform: uppercase;
-}
-
 
 
 /* ===== HERO ===== */
@@ -378,6 +312,10 @@
 
   cursor: pointer;
 }
+.quick-card img{
+  border-radius: 20px;
+  margin-bottom: 15px;
+}
 
 .quick-card-content {
   display: flex;
@@ -502,6 +440,7 @@
   font-weight: 600;
 
   cursor: pointer;
+  margin-bottom: 20px;
 }
 
 

@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { auth, db } from '../../firebase'
-import { modules } from '../../data/modules'
 import { signOut } from 'firebase/auth'
 
 
@@ -45,6 +44,10 @@ export const Dashboard = () => {
       setHasCompletedOnboarding(
         data.completedOnboarding || false
       )
+      if (!data.completedOnboarding) {
+        navigate('/welcome')
+        return
+      }
     }
 
       setLoading(false)
@@ -77,36 +80,6 @@ export const Dashboard = () => {
 
   return (
     <div className="container dashboard">
-
-      {/* ===== FIRST TIME ===== */}
-      {!hasCompletedOnboarding && (
-        <div className="welcome-card">
-
-          <h1 className="welcome-title">
-            Start. Learn. Improve!
-          </h1>
-
-          <div className="welcome-line" />
-
-          <p className="welcome-text">
-            Start with vocabulary, move to sentences and
-            then practice with mixed exercises.
-          </p>
-
-          {/* IMAGE */}
-          <div className="welcome-image">
-            <img src="/images/Amy.png" alt="welcome" />
-          </div>
-
-          {/* BUTTON */}
-          <button
-            className="welcome-button"
-            onClick={() => navigate('/onboarding')}
-          >
-            Get Started
-          </button>
-        </div>
-      )}
 
       {/* ===== NORMAL DASHBOARD ===== */}
       {hasCompletedOnboarding && (
@@ -241,6 +214,7 @@ export const Dashboard = () => {
               className="quick-card"
               onClick={() => navigate('/alphabet')}
             >
+              <img src="/images/alphabet.jpg" alt="" />
               <div className="quick-card-content">
 
                 <div>
@@ -261,51 +235,6 @@ export const Dashboard = () => {
             </div>
 
           </div>
-
-
-
-
-          {/* MODULES */}
-          {modules.map((section, i) => (
-            <div key={i} className="dashboard-section">
-
-              <h2 className="section-title">
-                {section.title}
-              </h2>
-
-              <div className="module-row">
-
-                {section.items.map((item) => (
-                  <div
-                    key={item.id}
-                    className="module-card"
-                    onClick={() => navigate(`/module/${item.id}`)}
-                  >
-                    <div
-                      className="module-image"
-                      style={{
-                        backgroundImage: `url(${item.image})`,
-                      }}
-                    />
-
-                    <div className="module-content">
-
-                      <div className="module-name">
-                        {item.title}
-                      </div>
-
-                      <div className="module-status">
-                        {item.status}
-                      </div>
-
-                    </div>
-                  </div>
-                ))}
-
-              </div>
-
-            </div>
-          ))}
 
         </>
       )}

@@ -10,6 +10,9 @@ import { Onboarding } from './pages/Onboarding/Onboarding'
 import { Module } from './pages/Module/Module'
 import { ABCCards } from './pages/Submodule/ABCCards'
 import { ScrollToTop } from './components/shared/ScrollToTop'
+import { Learn } from './pages/Learn/Learn'
+import { BottomNav } from './components/BottomNav/BottomNav'
+import { Welcome } from './pages/Welcome/Welcome'
 
 function App() {
   const [user, setUser] = useState<User | null>(null)
@@ -59,10 +62,13 @@ function App() {
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/onboarding" element={<Onboarding />} />
+        <Route path="/welcome" element={<Welcome />} />
         <Route path="/module/:id" element={<Module />} />
         <Route path="/abc-cards" element={<ABCCards />} />
         <Route path="/alphabet" element={<Alphabet />} />
+        <Route path="/learn" element={<Learn />} />
       </Routes>
+      <BottomNav />
     </>
   )
 }
