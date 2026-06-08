@@ -1,0 +1,52 @@
+.fingerspell-word {
+  width: 100%;
+}
+
+.fingerspell-video {
+  width: 100%;
+  border-radius: 16px;
+  display: block;
+}
+
+.fingerspell-progress {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.fingerspell-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ddd;
+}
+
+.fingerspell-dot.active {
+  background: #ff8a3d;
+}
+
+.fingerspell-word-label {
+  margin-top: 16px;
+
+  text-align: center;
+
+  font-size: 28px;
+  font-weight: 700;
+
+  letter-spacing: 4px;
+}
+
+.fingerspell-video {
+  width: 100%;
+  min-height: 213px;
+  border-radius: 16px;
+
+  opacity: 1;
+
+  transition: opacity .3s ease;
+}
+
+.fingerspell-video.fade {
+  opacity: 0;
+}

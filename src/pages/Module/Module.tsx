@@ -9,28 +9,42 @@ export const Module = () => {
 
   // 🔥 данные подмодулей
   const submodules = [
-    {
-      id: 'abc-cards',
-      title: 'ABC Cards',
-      description: 'Learn the individual letters from the finger alphabet.',
-      image: '/images/alphabet.jpg',
-      active: true,
-    },
-    {
-      id: 'abc-exercises',
-      title: 'ABC exercises',
-      description: 'Learn the individual letters from the finger alphabet.',
-      image: '/images/alphabet.jpg',
-      active: false,
-    },
-    {
-      id: 'abc-quiz',
-      title: 'ABC Quiz',
-      description: 'Test your knowledge of the alphabet.',
-      image: '/images/alphabet.jpg',
-      active: false,
-    },
-  ]
+  {
+    id: 'abc-beginner',
+    title: '🌱 ABC Beginner',
+    description:
+      'Learn your first 5 letters and build your first words.',
+    image: '/images/alphabet.jpg',
+    active: true,
+  },
+
+  {
+    id: 'abc-cards',
+    title: 'ABC Cards',
+    description:
+      'Practice the complete ASL alphabet.',
+    image: '/images/alphabet.jpg',
+    active: true,
+  },
+
+  {
+    id: 'abc-exercises',
+    title: 'ABC Exercises',
+    description:
+      'Practice letters in different exercises.',
+    image: '/images/alphabet.jpg',
+    active: false,
+  },
+
+  {
+    id: 'abc-quiz',
+    title: 'ABC Quiz',
+    description:
+      'Test your knowledge of the alphabet.',
+    image: '/images/alphabet.jpg',
+    active: false,
+  },
+]
 
   return (
     <div className="container module-page">

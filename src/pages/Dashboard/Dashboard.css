@@ -137,7 +137,7 @@
 
 .module-row {
   display: flex;
-  gap: 12px;
+  gap: 15px;
   overflow-x: auto;
   padding-bottom: 10px;
 }
@@ -250,13 +250,14 @@
 
 .module-row {
   display: flex;
+  flex-wrap: wrap;
   overflow-x: auto;
 }
 
 /* ===== CARD ===== */
 
 .module-card {
-  min-width: 175px;
+  min-width: 48%;
   background: white;  
   flex-shrink: 0;
   border-radius: 20px;
