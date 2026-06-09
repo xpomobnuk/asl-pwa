@@ -39,7 +39,7 @@ export const FingerspellWord = ({
         setFade(false)
       }, 50)
 
-    }, isLastLetter ? 3000 : 300)
+    }, isLastLetter ? 1500 : 300)
   }
 
   return (
