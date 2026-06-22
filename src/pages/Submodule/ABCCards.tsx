@@ -300,7 +300,7 @@ export const ABCCards = () => {
           <div className="results-line" />
 
           <p className="results-text">
-            {result.resultText}
+            {result.text}
           </p>
 
           <div className="results-stats">

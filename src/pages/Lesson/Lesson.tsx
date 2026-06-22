@@ -85,6 +85,14 @@ export const Lesson = () => {
         (item) => item.id === lessonId
     )
 
+    if (!lesson) {
+        return (
+            <div className="container">
+                Lesson not found
+            </div>
+        )
+    }
+
     const [mode, setMode] = useState(
         lesson.type === 'intermediate'
             ? 'learn-words'
