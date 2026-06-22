@@ -9,54 +9,6 @@ import { getLessonResult } from '../../utils/results'
 import '../Submodule/Submodule.css'
 
 export const Lesson = () => {
-    const getProgress = () => {
-
-        if (
-            mode === 'learn-letters'
-        ) {
-            return 25
-        }
-
-        if (
-            mode === 'quiz-letters'
-        ) {
-            return 50
-        }
-
-        if (
-            mode === 'learn-words'
-        ) {
-            return 75
-        }
-
-        if (
-            mode === 'quiz-words'
-        ) {
-            return 100
-        }
-
-
-
-        if (
-            lesson.type ===
-            'intermediate'
-        ) {
-
-            if (
-                mode === 'learn-words'
-            ) {
-                return 50
-            }
-
-            if (
-                mode === 'quiz-words'
-            ) {
-                return 100
-            }
-        }
-
-        return 100
-    }
     const { lessonId } = useParams()
     const navigate = useNavigate()
 
@@ -196,6 +148,55 @@ export const Lesson = () => {
                 Lesson not found
             </div>
         )
+    }
+
+    const getProgress = () => {
+
+        if (
+            mode === 'learn-letters'
+        ) {
+            return 25
+        }
+
+        if (
+            mode === 'quiz-letters'
+        ) {
+            return 50
+        }
+
+        if (
+            mode === 'learn-words'
+        ) {
+            return 75
+        }
+
+        if (
+            mode === 'quiz-words'
+        ) {
+            return 100
+        }
+
+
+
+        if (
+            lesson.type ===
+            'intermediate'
+        ) {
+
+            if (
+                mode === 'learn-words'
+            ) {
+                return 50
+            }
+
+            if (
+                mode === 'quiz-words'
+            ) {
+                return 100
+            }
+        }
+
+        return 100
     }
 
 
