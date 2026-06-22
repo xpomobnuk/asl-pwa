@@ -4,7 +4,6 @@ import './BottomNav.css'
 
 export const BottomNav = () => {
 const location = useLocation()
-console.log(location.pathname)
 const hideBottomNav =
   location.pathname.startsWith('/onboarding') ||
   location.pathname.startsWith('/welcome') ||

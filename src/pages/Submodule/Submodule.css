@@ -19,14 +19,18 @@
 
 .progress {
   flex: 1;
-  height: 12px;
   background: #eee;
-  border-radius: 10px;
+  height: 10px;
+  border-radius: 999px;
+  overflow: hidden;
 }
 
 .progress-bar {
   height: 100%;
   background: var(--yellow);
+  border-radius: 999px;
+  transition:
+    width .35s ease;
 }
 
 /* VIDEO */
@@ -328,4 +332,33 @@
   .stat-value {
     font-size: 18px;
   }
+}
+
+.submodule-header button {
+  width: 40px;
+  height: 40px;
+
+  border: none;
+  border-radius: 12px;
+
+  background: #f4f4f4;
+
+  font-size: 18px;
+}
+
+.submodule-header button:active {
+  transform: scale(.95);
+}
+
+.lesson-step {
+  margin-top: 12px;
+  margin-bottom: 8px;
+
+  font-size: 14px;
+
+  color: #777;
+}
+
+.learn-title{
+  margin-top: 10px;
 }

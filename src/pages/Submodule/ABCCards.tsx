@@ -4,7 +4,7 @@ import './Submodule.css'
 
 import { completeSubmodule } from '../../utils/progress'
 import { saveReward } from '../../utils/rewards'
-
+import { getLessonResult } from '../../utils/results'
 const blocks = [
   {
     id: 'block-1',
@@ -137,58 +137,13 @@ export const ABCCards = () => {
     return 100
   }
 
-  const accuracy =
-    totalQuestions > 0
-      ? Math.round(
-          (totalCorrect / totalQuestions) * 100
-        )
-      : 0
 
-  let reward = 2
+ const result = getLessonResult(
+  totalCorrect,
+  totalQuestions
+)
 
-  if (accuracy >= 50) reward = 5
-  if (accuracy >= 75) reward = 8
-  if (accuracy >= 90) reward = 10
-
-  let resultTitle = 'Keep Going!'
-  let resultText =
-    'Every attempt helps you learn. Review the lesson and try again.'
-
-  if (accuracy >= 50) {
-    resultTitle = 'Great Job!'
-    resultText =
-      "You're making good progress. Keep practicing."
-  }
-
-  if (accuracy >= 75) {
-    resultTitle = 'Excellent Work!'
-    resultText =
-      'You know this lesson really well. Keep it up.'
-  }
-
-  if (accuracy >= 90) {
-    resultTitle = 'Outstanding!'
-    resultText =
-      "Perfect performance. You're ready for the next challenge."
-  }
-
-  const accuracyClass =
-    accuracy < 50
-      ? 'red'
-      : accuracy < 75
-      ? 'orange'
-      : 'green'
-
-  
-  let heroImage = '/characters/hero_1.png'
-
-  if (accuracy >= 50) {
-    heroImage = '/characters/hero_3.png'
-  }
-
-  if (accuracy >= 75) {
-    heroImage = '/characters/hero_2.png'
-  }    
+ 
 
 
   return (
@@ -333,19 +288,19 @@ export const ABCCards = () => {
 
           <div className="results-image">
           <img
-            src={heroImage}
+            src={result.heroImage}
             alt="hero"
           />
         </div>
 
           <h2 className="results-title">
-            {resultTitle}
+            {result.title}
           </h2>
 
           <div className="results-line" />
 
           <p className="results-text">
-            {resultText}
+            {result.resultText}
           </p>
 
           <div className="results-stats">
@@ -366,19 +321,19 @@ export const ABCCards = () => {
               </div>
 
               <div className="stat-value">
-                {reward} XP
+                {result.reward} XP
               </div>
             </div>
 
             <div
-              className={`stat-card ${accuracyClass}`}
+              className={`stat-card ${result.accuracyClass}`}
             >
               <div className="stat-label">
                 Accuracy
               </div>
 
               <div className="stat-value">
-                {accuracy}%
+                {result.accuracy}%
               </div>
             </div>
 
@@ -398,9 +353,9 @@ export const ABCCards = () => {
             <button
               className="btn-primary"
               onClick={async () => {
-                await saveReward(reward)
+                await saveReward(result.reward)
 
-                if (accuracy >= 90) {
+                if (result.accuracy >= 90) {
                   await completeSubmodule('abc-cards')
                 }
 

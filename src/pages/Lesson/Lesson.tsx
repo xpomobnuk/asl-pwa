@@ -1,99 +1,67 @@
 import { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
+import { alphabetLessons } from '../../lessons/alphabet'
 import { FingerspellWord } from '../../components/FingerspellWord/FingerspellWord'
+import { saveReward, completeSubmodule } from '../../utils/rewards'
+import { getLessonResult } from '../../utils/results'
+
 import '../Submodule/Submodule.css'
-import {
-    saveReward,
-    completeSubmodule,
-} from '../../utils/rewards'
 
-import {
-    getLessonResult,
-} from '../../utils/results'
+export const Lesson = () => {
+    const getProgress = () => {
 
-const lesson = {
-    letters: [
-        { letter: 'A', video: '/videos/a.mp4' },
-        { letter: 'C', video: '/videos/c.mp4' },
-        { letter: 'O', video: '/videos/o.mp4' },
-        { letter: 'T', video: '/videos/t.mp4' },
-        { letter: 'M', video: '/videos/m.mp4' },
-    ],
+        if (
+            mode === 'learn-letters'
+        ) {
+            return 25
+        }
 
-    words: [
-        {
-            word: 'CAT',
-            letters: ['C', 'A', 'T'],
-        },
-        {
-            word: 'MAT',
-            letters: ['M', 'A', 'T'],
-        },
-        {
-            word: 'TOM',
-            letters: ['T', 'O', 'M'],
-        },
-        {
-            word: 'MOM',
-            letters: ['M', 'O', 'M'],
-        },
-        {
-            word: 'ACT',
-            letters: ['A', 'C', 'T'],
-        },
-    ],
-}
+        if (
+            mode === 'quiz-letters'
+        ) {
+            return 50
+        }
 
-type Mode =
-    | 'learn-letters'
-    | 'quiz-letters'
-    | 'learn-words'
-    | 'quiz-words'
-    | 'finished'
+        if (
+            mode === 'learn-words'
+        ) {
+            return 75
+        }
 
-const shuffle = (array: any[]) => {
-    const arr = [...array]
+        if (
+            mode === 'quiz-words'
+        ) {
+            return 100
+        }
 
-    for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(
-            Math.random() * (i + 1)
-        )
 
-            ;[arr[i], arr[j]] = [arr[j], arr[i]]
+
+        if (
+            lesson.type ===
+            'intermediate'
+        ) {
+
+            if (
+                mode === 'learn-words'
+            ) {
+                return 50
+            }
+
+            if (
+                mode === 'quiz-words'
+            ) {
+                return 100
+            }
+        }
+
+        return 100
     }
-
-    return arr
-}
-
-export const ABCBeginner = () => {
+    const { lessonId } = useParams()
     const navigate = useNavigate()
 
-    const [mode, setMode] =
-        useState<Mode>('learn-letters')
-
-    const [wordIndex, setWordIndex] =
+    const [index, setIndex] =
         useState(0)
-
-    const [wordSelected, setWordSelected] =
-        useState<string | null>(null)
-
-    const [wordAnswered, setWordAnswered] =
-        useState(false)
-
-    const [wordOptions, setWordOptions] =
-        useState<string[]>([])
-
-    const [correctAnswers, setCorrectAnswers] =
-        useState(0)
-
-    const [totalAnswers, setTotalAnswers] =
-        useState(0)
-
-    const [quizData] = useState(
-        shuffle(lesson.letters)
-    )
-
-    const [index, setIndex] = useState(0)
 
     const [selected, setSelected] =
         useState<string | null>(null)
@@ -104,19 +72,69 @@ export const ABCBeginner = () => {
     const [options, setOptions] =
         useState<string[]>([])
 
-    const generateOptions = (
-        correct: string
-    ) => {
-        const letters = lesson.letters
-            .map((l) => l.letter)
-            .filter((l) => l !== correct)
+    const [correctAnswers, setCorrectAnswers] =
+        useState(0)
 
-        const random3 = shuffle(
-            letters
-        ).slice(0, 3)
+    const [totalAnswers, setTotalAnswers] =
+        useState(0)
+
+    const [wordIndex, setWordIndex] =
+        useState(0)
+
+    const lesson = alphabetLessons.find(
+        (item) => item.id === lessonId
+    )
+
+    const [mode, setMode] = useState(
+        lesson.type === 'intermediate'
+            ? 'learn-words'
+            : 'learn-letters'
+    )
+
+    const shuffle = (
+        array: string[]
+    ) => {
+        const arr = [...array]
+
+        for (
+            let i = arr.length - 1;
+            i > 0;
+            i--
+        ) {
+            const j = Math.floor(
+                Math.random() * (i + 1)
+            )
+
+                ;[arr[i], arr[j]] = [
+                    arr[j],
+                    arr[i],
+                ]
+        }
+
+        return arr
+    }
+
+    const generateOptions = (
+        correctLetter: string
+    ) => {
+        const letters =
+            lesson.letters
+                .map(
+                    (item) => item.letter
+                )
+                .filter(
+                    (item) =>
+                        item !== correctLetter
+                )
+
+        const random3 =
+            shuffle(letters).slice(
+                0,
+                3
+            )
 
         return shuffle([
-            correct,
+            correctLetter,
             ...random3,
         ])
     }
@@ -125,14 +143,14 @@ export const ABCBeginner = () => {
         correctWord: string
     ) => {
         const words = lesson.words
-            .map((w) => w.word)
+            .map((item) => item.word)
             .filter(
-                (w) => w !== correctWord
+                (item) =>
+                    item !== correctWord
             )
 
-        const random3 = shuffle(
-            words
-        ).slice(0, 3)
+        const random3 =
+            shuffle(words).slice(0, 3)
 
         return shuffle([
             correctWord,
@@ -141,105 +159,42 @@ export const ABCBeginner = () => {
     }
 
     useEffect(() => {
-        if (quizData.length) {
+        if (mode === 'quiz-letters') {
             setOptions(
                 generateOptions(
-                    quizData[0].letter
+                    lesson.letters[index]
+                        .letter
                 )
             )
         }
-    }, [])
 
-    const nextQuestion = () => {
-        setSelected(null)
-        setAnswered(false)
-
-        if (index === quizData.length - 1) {
-            setMode('learn-words')
-            return
-        }
-
-        const nextIndex = index + 1
-
-        setIndex(nextIndex)
-
-        setOptions(
-            generateOptions(
-                quizData[nextIndex].letter
+        if (mode === 'quiz-words') {
+            setOptions(
+                generateWordOptions(
+                    lesson.words[wordIndex]
+                        .word
+                )
             )
+        }
+    }, [
+        index,
+        wordIndex,
+        mode,
+    ])
+
+    if (!lesson) {
+        return (
+            <div className="container">
+                Lesson not found
+            </div>
         )
     }
 
-    const nextWord = () => {
-        setWordSelected(null)
-        setWordAnswered(false)
-
-        if (
-            wordIndex ===
-            lesson.words.length - 1
-        ) {
-            setMode('finished')
-            return
-        }
-
-        const next =
-            wordIndex + 1
-
-        setWordIndex(next)
-
-        setWordOptions(
-            generateWordOptions(
-                lesson.words[next].word
-            )
-        )
-    }
-
-
-
-
-    const stepProgress = () => {
-        switch (mode) {
-            case 'learn-letters':
-                return 25
-
-            case 'quiz-letters':
-                return 50
-
-            case 'learn-words':
-                return 75
-
-            case 'quiz-words':
-                return 100
-
-            default:
-                return 100
-        }
-    }
-
-    const currentStep = () => {
-        switch (mode) {
-            case 'learn-letters':
-                return 1
-
-            case 'quiz-letters':
-                return 2
-
-            case 'learn-words':
-                return 3
-
-            case 'quiz-words':
-                return 4
-
-            default:
-                return 4
-        }
-    }
 
     const result = getLessonResult(
         correctAnswers,
         totalAnswers
     )
-
 
     return (
         <div className="container submodule">
@@ -252,55 +207,48 @@ export const ABCBeginner = () => {
                     ✕
                 </button>
 
+                <div className="progress">
+
+                    <div
+                        className="progress-bar"
+                        style={{
+                            width: `${getProgress()}%`,
+                        }}
+                    />
+
+                </div>
+
             </div>
 
-            {mode !== 'finished' && (
-                <>
-                    <div className="lesson-step">
-                        Step {currentStep()} of 4
-                    </div>
-
-                    <div className="progress">
-                        <div
-                            className="progress-bar"
-                            style={{
-                                width: `${stepProgress()}%`,
-                            }}
-                        />
-                    </div>
-                </>
-            )}
-
-            {/* STEP 1 */}
             {mode === 'learn-letters' && (
                 <>
                     <h2 className="learn-title">
-                        Learn 5 Letters
+                        {lesson.title}
                     </h2>
 
                     <div className="learn-list">
 
-                        {lesson.letters.map(
-                            (item) => (
-                                <div
-                                    key={item.letter}
-                                    className="learn-card"
-                                >
-                                    <video
-                                        src={item.video}
-                                        autoPlay
-                                        loop
-                                        muted
-                                        playsInline
-                                        className="video"
-                                    />
+                        {lesson.letters.map((item) => (
+                            <div
+                                key={item.letter}
+                                className="learn-card"
+                            >
 
-                                    <div className="letter">
-                                        {item.letter}
-                                    </div>
+                                <video
+                                    src={item.video}
+                                    autoPlay
+                                    loop
+                                    muted
+                                    playsInline
+                                    className="video"
+                                />
+
+                                <div className="letter">
+                                    {item.letter}
                                 </div>
-                            )
-                        )}
+
+                            </div>
+                        ))}
 
                     </div>
 
@@ -314,10 +262,10 @@ export const ABCBeginner = () => {
                     >
                         Continue
                     </button>
+
                 </>
             )}
 
-            {/* STEP 2 */}
             {mode === 'quiz-letters' && (
                 <>
                     <h2 className="learn-title">
@@ -325,7 +273,10 @@ export const ABCBeginner = () => {
                     </h2>
 
                     <video
-                        src={quizData[index].video}
+                        src={
+                            lesson.letters[index]
+                                .video
+                        }
                         autoPlay
                         loop
                         muted
@@ -336,10 +287,10 @@ export const ABCBeginner = () => {
                     <div className="options-grid">
 
                         {options.map((opt) => {
+
                             const isCorrect =
                                 opt ===
-                                quizData[index]
-                                    .letter
+                                lesson.letters[index].letter
 
                             const isSelected =
                                 selected === opt
@@ -348,37 +299,43 @@ export const ABCBeginner = () => {
                                 <div
                                     key={opt}
                                     className={`option
-                    ${isSelected
+                ${isSelected
                                             ? 'selected'
                                             : ''
                                         }
-                    ${answered &&
-                                            isCorrect
+                ${answered && isCorrect
                                             ? 'correct'
                                             : ''
                                         }
-                    ${answered &&
+                ${answered &&
                                             isSelected &&
                                             !isCorrect
                                             ? 'wrong'
                                             : ''
                                         }
-                  `}
+            `}
                                     onClick={() => {
-                                        if (
-                                            answered
-                                        )
+
+                                        if (answered)
                                             return
 
                                         setSelected(opt)
                                         setAnswered(true)
 
-                                        setTotalAnswers((prev) => prev + 1)
+                                        setTotalAnswers(
+                                            (prev) =>
+                                                prev + 1
+                                        )
+
                                         if (
-                                            opt === quizData[index].letter
+                                            opt ===
+                                            lesson.letters[
+                                                index
+                                            ].letter
                                         ) {
                                             setCorrectAnswers(
-                                                (prev) => prev + 1
+                                                (prev) =>
+                                                    prev + 1
                                             )
                                         }
                                     }}
@@ -393,14 +350,35 @@ export const ABCBeginner = () => {
                     <button
                         className="next-btn"
                         disabled={!answered}
-                        onClick={nextQuestion}
+                        onClick={() => {
+
+                            setSelected(null)
+                            setAnswered(false)
+
+                            if (
+                                index ===
+                                lesson.letters
+                                    .length -
+                                1
+                            ) {
+                                setMode('learn-words')
+                                setIndex(0)
+                                return
+                            }
+
+                            setIndex(
+                                (prev) =>
+                                    prev + 1
+                            )
+                        }}
                     >
                         Next
                     </button>
+
                 </>
             )}
 
-            {/* STEP 3 */}
+
             {mode === 'learn-words' && (
                 <>
                     <h2 className="learn-title">
@@ -410,42 +388,30 @@ export const ABCBeginner = () => {
                     <div
                         style={{
                             display: 'flex',
-                            flexDirection:
-                                'column',
+                            flexDirection: 'column',
                             gap: '24px',
                         }}
                     >
-                        {lesson.words.map(
-                            (item) => (
-                                <FingerspellWord
-                                    key={item.word}
-                                    word={item.word}
-                                    letters={
-                                        item.letters
-                                    }
-                                />
-                            )
-                        )}
+                        {lesson.words.map((item) => (
+                            <FingerspellWord
+                                key={item.word}
+                                word={item.word}
+                                letters={item.letters}
+                            />
+                        ))}
                     </div>
 
                     <button
                         className="next-btn"
                         onClick={() => {
                             setMode('quiz-words')
-
-                            setWordOptions(
-                                generateWordOptions(
-                                    lesson.words[0].word
-                                )
-                            )
+                            setIndex(0)
                         }}
                     >
                         Continue
                     </button>
-
                 </>
             )}
-
 
 
             {mode === 'quiz-words' && (
@@ -455,10 +421,8 @@ export const ABCBeginner = () => {
                     </h2>
 
                     <FingerspellWord
-                        key={
-                            lesson.words[wordIndex]
-                                .word
-                        }
+                        key={lesson.words[wordIndex].word}
+                        word=""
                         letters={
                             lesson.words[wordIndex]
                                 .letters
@@ -467,29 +431,30 @@ export const ABCBeginner = () => {
 
                     <div className="options-grid">
 
-                        {wordOptions.map((opt) => {
+                        {options.map((opt) => {
+
                             const isCorrect =
                                 opt ===
-                                lesson.words[wordIndex]
-                                    .word
+                                lesson.words[
+                                    wordIndex
+                                ].word
 
                             const isSelected =
-                                wordSelected === opt
+                                selected === opt
 
                             return (
                                 <div
                                     key={opt}
                                     className={`option
-              ${isSelected
+                ${isSelected
                                             ? 'selected'
                                             : ''
                                         }
-              ${wordAnswered &&
-                                            isCorrect
+                ${answered && isCorrect
                                             ? 'correct'
                                             : ''
                                         }
-              ${wordAnswered &&
+                ${answered &&
                                             isSelected &&
                                             !isCorrect
                                             ? 'wrong'
@@ -497,17 +462,16 @@ export const ABCBeginner = () => {
                                         }
             `}
                                     onClick={() => {
-                                        if (
-                                            wordAnswered
-                                        )
+
+                                        if (answered)
                                             return
 
-                                        setWordSelected(
-                                            opt
-                                        )
+                                        setSelected(opt)
+                                        setAnswered(true)
 
-                                        setWordAnswered(
-                                            true
+                                        setTotalAnswers(
+                                            (prev) =>
+                                                prev + 1
                                         )
 
                                         if (
@@ -521,11 +485,6 @@ export const ABCBeginner = () => {
                                                     prev + 1
                                             )
                                         }
-
-                                        setTotalAnswers(
-                                            (prev) =>
-                                                prev + 1
-                                        )
                                     }}
                                 >
                                     {opt}
@@ -537,14 +496,31 @@ export const ABCBeginner = () => {
 
                     <button
                         className="next-btn"
-                        disabled={!wordAnswered}
-                        onClick={nextWord}
+                        disabled={!answered}
+                        onClick={() => {
+
+                            setSelected(null)
+                            setAnswered(false)
+
+                            if (
+                                wordIndex ===
+                                lesson.words.length - 1
+                            ) {
+                                setMode('finished')
+                                return
+                            }
+
+                            setWordIndex(
+                                (prev) =>
+                                    prev + 1
+                            )
+                        }}
                     >
                         Next
                     </button>
+
                 </>
             )}
-
 
             {mode === 'finished' && (
                 <div className="results-screen">
@@ -631,7 +607,7 @@ export const ABCBeginner = () => {
                                     result.accuracy >= 90
                                 ) {
                                     await completeSubmodule(
-                                        'abc-beginner'
+                                        lesson.id
                                     )
                                 }
 
@@ -645,6 +621,7 @@ export const ABCBeginner = () => {
 
                 </div>
             )}
+
 
 
         </div>

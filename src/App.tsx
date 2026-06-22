@@ -15,6 +15,7 @@ import { ScrollToTop } from './components/shared/ScrollToTop'
 import { Learn } from './pages/Learn/Learn'
 import { BottomNav } from './components/BottomNav/BottomNav'
 import { Welcome } from './pages/Welcome/Welcome'
+import { Lesson }from './pages/Lesson/Lesson'
 
 function App() {
   const [user, setUser] = useState<User | null>(null)
@@ -71,6 +72,7 @@ function App() {
         <Route path="/learn" element={<Learn />} />
         <Route path="/word-demo"element={<WordDemo />} />
         <Route path="/abc-beginner" element={<ABCBeginner />} />
+        <Route path="/lesson/:lessonId" element={<Lesson />}/>
       </Routes>
       <BottomNav />
     </>
