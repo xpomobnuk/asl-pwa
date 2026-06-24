@@ -44,3 +44,9 @@
 .bottom-nav-item.active {
   color: #ff8a3d;
 }
+
+.bottom-nav-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}

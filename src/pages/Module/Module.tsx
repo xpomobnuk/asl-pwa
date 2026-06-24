@@ -12,6 +12,7 @@ export const Module = () => {
     {
       id: 'abc-beginner-1',
       title: '🌱 Beginner 1',
+      routeType: 'lesson',
       description:
         'Learn your first letters and words.',
       image: '/images/alphabet.jpg',
@@ -21,6 +22,7 @@ export const Module = () => {
     {
       id: 'abc-beginner-2',
       title: '🌱 Beginner 2',
+      routeType: 'lesson',
       description:
         'Expand your alphabet with new letters and words.',
       image: '/images/alphabet.jpg',
@@ -29,6 +31,7 @@ export const Module = () => {
     {
       id: 'abc-beginner-3',
       title: '🌱 Beginner 3',
+      routeType: 'lesson',
       description:
         'Build longer words using familiar letters.',
       image: '/images/alphabet.jpg',
@@ -38,6 +41,7 @@ export const Module = () => {
     {
       id: 'abc-beginner-4',
       title: '🌱 Beginner 4',
+      routeType: 'lesson',
       description:
         'Learn more letters and read bigger words.',
       image: '/images/alphabet.jpg',
@@ -46,6 +50,7 @@ export const Module = () => {
     {
       id: 'abc-beginner-5',
       title: '🌱 Beginner 5',
+      routeType: 'lesson',
       description:
         'Add useful letters and build everyday words.',
       image: '/images/alphabet.jpg',
@@ -55,6 +60,7 @@ export const Module = () => {
     {
       id: 'abc-beginner-6',
       title: '🌱 Beginner 6',
+      routeType: 'lesson',
       description:
         'Practice new letters in common short words.',
       image: '/images/alphabet.jpg',
@@ -63,6 +69,7 @@ export const Module = () => {
     {
       id: 'abc-beginner-7',
       title: '🌱 Beginner 7',
+      routeType: 'lesson',
       description:
         'Learn advanced letters and improve recognition.',
       image: '/images/alphabet.jpg',
@@ -72,6 +79,7 @@ export const Module = () => {
     {
       id: 'abc-beginner-8',
       title: '🌱 Beginner 8',
+      routeType: 'lesson',
       description:
         'Complete the alphabet and master the final letters.',
       image: '/images/alphabet.jpg',
@@ -81,6 +89,7 @@ export const Module = () => {
     {
       id: 'abc-intermediate-1',
       title: '⭐ Intermediate 1',
+      routeType: 'lesson',
       description:
         'Practice reading complete everyday words.',
       image: '/images/alphabet.jpg',
@@ -90,38 +99,23 @@ export const Module = () => {
     {
       id: 'abc-intermediate-2',
       title: '⭐ Intermediate 2',
+      routeType: 'lesson',
       description:
         'Read longer words and improve speed.',
       image: '/images/alphabet.jpg',
       active: true,
     },
-
     {
       id: 'abc-cards',
       title: 'ABC Cards',
+      routeType: 'page',
       description:
         'Practice the complete ASL alphabet.',
       image: '/images/alphabet.jpg',
       active: true,
     },
 
-    {
-      id: 'abc-exercises',
-      title: 'ABC Exercises',
-      description:
-        'Practice letters in different exercises.',
-      image: '/images/alphabet.jpg',
-      active: false,
-    },
 
-    {
-      id: 'abc-quiz',
-      title: 'ABC Quiz',
-      description:
-        'Test your knowledge of the alphabet.',
-      image: '/images/alphabet.jpg',
-      active: false,
-    },
   ]
 
   return (
@@ -156,10 +150,17 @@ export const Module = () => {
               if (!item.active) return
 
               if (
-                item.id.startsWith('abc-beginner') ||
-                item.id.startsWith('abc-intermediate')
+                item.routeType === 'lesson'
               ) {
-                navigate(`/lesson/${item.id}`)
+                navigate(
+                  `/lesson/${item.id}`,
+                  {
+                    state: {
+                      returnTo: `/module/${id}`,
+                    },
+                  }
+                )
+
                 return
               }
 

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { alphabetLessons } from '../../lessons/alphabet'
 import { FingerspellWord } from '../../components/FingerspellWord/FingerspellWord'
 import { saveReward, completeSubmodule } from '../../utils/rewards'
@@ -11,6 +11,9 @@ import '../Submodule/Submodule.css'
 export const Lesson = () => {
     const { lessonId } = useParams()
     const navigate = useNavigate()
+    const location = useLocation()
+    const returnTo = location.state?.returnTo ??
+  '/learn'
 
     const [index, setIndex] =
         useState(0)
@@ -620,7 +623,7 @@ export const Lesson = () => {
                                     )
                                 }
 
-                                navigate('/')
+                                navigate(returnTo)
                             }}
                         >
                             Complete

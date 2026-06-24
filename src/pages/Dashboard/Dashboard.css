@@ -149,7 +149,7 @@
   overflow: hidden;
   background: white;
 
-  box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
   cursor: pointer;
   padding-bottom: 10px;
 }
@@ -206,7 +206,7 @@
   border-radius: 20px;
   padding: 18px;
 
-  box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
 
   margin-bottom: 30px;
 }
@@ -257,12 +257,12 @@
 
 .module-card {
   min-width: 48%;
-  background: white;  
+  background: white;
   flex-shrink: 0;
   border-radius: 20px;
   overflow: hidden;
 
-  box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
 
   cursor: pointer;
 }
@@ -308,11 +308,12 @@
   border-radius: 20px;
   padding: 18px;
 
-  box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
 
   cursor: pointer;
 }
-.quick-card img{
+
+.quick-card img {
   border-radius: 20px;
   margin-bottom: 15px;
 }
@@ -392,7 +393,7 @@
   border-radius: 24px;
   padding: 22px;
 
-  box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
 
   margin-bottom: 30px;
 }
@@ -463,13 +464,15 @@
 
   text-align: center;
 
-  box-shadow: 0 2px 10px rgba(0,0,0,.05);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, .05);
 }
 
 .player-stat-icon {
   font-size: 24px;
-
   margin-bottom: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .player-stat-label {

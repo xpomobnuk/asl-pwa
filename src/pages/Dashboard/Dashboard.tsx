@@ -17,7 +17,7 @@ export const Dashboard = () => {
   const level = Math.floor(xp / 100) + 1
   const currentLevelXp = xp % 100
   const [completedModules, setCompletedModules] =
-  useState(0)
+    useState(0)
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -28,27 +28,27 @@ export const Dashboard = () => {
       const ref = doc(db, 'users', user.uid)
       const snap = await getDoc(ref)
 
-     if (snap.exists()) {
-      const data = snap.data()
+      if (snap.exists()) {
+        const data = snap.data()
 
-      setUserName(data.name || '')
+        setUserName(data.name || '')
 
-      setEnergy(data.energy ?? 5)
-      setXp(data.xp ?? 0)
+        setEnergy(data.energy ?? 5)
+        setXp(data.xp ?? 0)
 
-      const completed =
-        data.completedSubmodules ?? []
+        const completed =
+          data.completedSubmodules ?? []
 
-      setCompletedModules(completed.length)
+        setCompletedModules(completed.length)
 
-      setHasCompletedOnboarding(
-        data.completedOnboarding || false
-      )
-      if (!data.completedOnboarding) {
-        navigate('/welcome')
-        return
+        setHasCompletedOnboarding(
+          data.completedOnboarding || false
+        )
+        if (!data.completedOnboarding) {
+          navigate('/welcome')
+          return
+        }
       }
-    }
 
       setLoading(false)
     }
@@ -110,7 +110,11 @@ export const Dashboard = () => {
             <div className="player-stat">
 
               <div className="player-stat-icon">
-                ⚡
+                <img
+                  src="/statistic-icons/Energy.svg"
+                  alt="Learn"
+                  className="bottom-nav-icon"
+                />
               </div>
 
               <div className="player-stat-label">
@@ -126,7 +130,11 @@ export const Dashboard = () => {
             <div className="player-stat">
 
               <div className="player-stat-icon">
-                🏆
+                <img
+                  src="/statistic-icons/Level.svg"
+                  alt="Learn"
+                  className="bottom-nav-icon"
+                />
               </div>
 
               <div className="player-stat-label">
@@ -142,11 +150,15 @@ export const Dashboard = () => {
             <div className="player-stat">
 
               <div className="player-stat-icon">
-                ⭐
+                <img
+                  src="/statistic-icons/Xp.svg"
+                  alt="Learn"
+                  className="bottom-nav-icon"
+                />
               </div>
 
               <div className="player-stat-label">
-                XP
+                Xp
               </div>
 
               <div className="player-stat-value">
@@ -182,7 +194,7 @@ export const Dashboard = () => {
 
             </div>
 
-          </div>   
+          </div>
 
 
           {/* MODULE STATS */}
