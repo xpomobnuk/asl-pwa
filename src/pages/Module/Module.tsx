@@ -1,122 +1,86 @@
 import { useParams, useNavigate } from 'react-router-dom'
+import type { ModuleGroup } from '../../types/module'
+import { useState } from 'react'
+import {
+  beginner1,
+  beginner2,
+  beginner3,
+  beginner4,
+  beginner5,
+  beginner6,
+  beginner7,
+  beginner8,
+  intermediate1,
+  intermediate2,
+} from '../../lessons/alphabet'
+import { getLessonProgress } from '../../utils/lessonProgress'
 import './Module.css'
 
 export const Module = () => {
   const { id } = useParams()
   const navigate = useNavigate()
 
+  const [openGroup, setOpenGroup] = useState('beginner')
+
   const moduleTitle = id === 'alphabet' ? 'Alphabet ABC' : 'Module'
 
-  // 🔥 данные подмодулей
-  const submodules = [
+  const groups: ModuleGroup[] = [
     {
-      id: 'abc-beginner-1',
-      title: '🌱 Beginner 1',
-      routeType: 'lesson',
-      description:
-        'Learn your first letters and words.',
-      image: '/images/alphabet.jpg',
-      active: true,
+      id: 'beginner',
+
+      title: 'Beginner',
+
+      image: '/modules/abc/group-beginner.png',
+
+      color: 'blue',
+
+      lessons: [
+        beginner1,
+        beginner2,
+        beginner3,
+        beginner4,
+        beginner5,
+        beginner6,
+        beginner7,
+        beginner8,
+      ],
     },
 
     {
-      id: 'abc-beginner-2',
-      title: '🌱 Beginner 2',
-      routeType: 'lesson',
-      description:
-        'Expand your alphabet with new letters and words.',
-      image: '/images/alphabet.jpg',
-      active: true,
-    },
-    {
-      id: 'abc-beginner-3',
-      title: '🌱 Beginner 3',
-      routeType: 'lesson',
-      description:
-        'Build longer words using familiar letters.',
-      image: '/images/alphabet.jpg',
-      active: true,
+      id: 'intermediate',
+
+      title: 'Intermediate',
+
+      image: '/modules/abc/group-intermediate.png',
+
+      color: 'yellow',
+
+      lessons: [
+        intermediate1,
+        intermediate2,
+      ],
     },
 
     {
-      id: 'abc-beginner-4',
-      title: '🌱 Beginner 4',
-      routeType: 'lesson',
-      description:
-        'Learn more letters and read bigger words.',
-      image: '/images/alphabet.jpg',
-      active: true,
-    },
-    {
-      id: 'abc-beginner-5',
-      title: '🌱 Beginner 5',
-      routeType: 'lesson',
-      description:
-        'Add useful letters and build everyday words.',
-      image: '/images/alphabet.jpg',
-      active: true,
-    },
+      id: 'pro',
 
-    {
-      id: 'abc-beginner-6',
-      title: '🌱 Beginner 6',
-      routeType: 'lesson',
-      description:
-        'Practice new letters in common short words.',
-      image: '/images/alphabet.jpg',
-      active: true,
-    },
-    {
-      id: 'abc-beginner-7',
-      title: '🌱 Beginner 7',
-      routeType: 'lesson',
-      description:
-        'Learn advanced letters and improve recognition.',
-      image: '/images/alphabet.jpg',
-      active: true,
-    },
+      title: 'Pro',
 
-    {
-      id: 'abc-beginner-8',
-      title: '🌱 Beginner 8',
-      routeType: 'lesson',
-      description:
-        'Complete the alphabet and master the final letters.',
-      image: '/images/alphabet.jpg',
-      active: true,
-    },
+      image: '/modules/abc/group-pro.png',
 
-    {
-      id: 'abc-intermediate-1',
-      title: '⭐ Intermediate 1',
-      routeType: 'lesson',
-      description:
-        'Practice reading complete everyday words.',
-      image: '/images/alphabet.jpg',
-      active: true,
-    },
+      color: 'orange',
 
-    {
-      id: 'abc-intermediate-2',
-      title: '⭐ Intermediate 2',
-      routeType: 'lesson',
-      description:
-        'Read longer words and improve speed.',
-      image: '/images/alphabet.jpg',
-      active: true,
+      lessons: [],
     },
-    {
-      id: 'abc-cards',
-      title: 'ABC Cards',
-      routeType: 'page',
-      description:
-        'Practice the complete ASL alphabet.',
-      image: '/images/alphabet.jpg',
-      active: true,
-    },
-
-
   ]
+
+
+  const totalLessons = groups.reduce(
+    (total, group) =>
+      total + group.lessons.length,
+    0
+  )
+
 
   return (
     <div className="container module-page">
@@ -136,60 +100,157 @@ export const Module = () => {
 
       {/* COUNT */}
       <div className="submodule-lessons">
-        {submodules.length} Lessons
+        {totalLessons} Lessons
       </div>
 
       {/* LIST */}
       <div className="submodules">
-        {submodules.map((item) => (
-          <div
-            key={item.id}
-            className={`submodule-row ${item.active ? 'active' : 'locked'}`}
-            onClick={() => {
 
-              if (!item.active) return
+        {groups.map((group) => (
+          <div key={group.id} className="group-wrap">
 
-              if (
-                item.routeType === 'lesson'
-              ) {
-                navigate(
-                  `/lesson/${item.id}`,
-                  {
-                    state: {
-                      returnTo: `/module/${id}`,
-                    },
-                  }
-                )
-
-                return
-              }
-
-              navigate(`/${item.id}`)
-            }}
-          >
-            {/* IMAGE */}
             <div
-              className="submodule-image"
-              style={{ backgroundImage: `url(${item.image})` }}
-            />
+              className="group-card"
+              onClick={() =>
+                setOpenGroup(
+                  openGroup === group.id
+                    ? ''
+                    : group.id
+                )
+              }
+            >
 
-            {/* CONTENT */}
-            <div className="submodule-content">
-              <h3 className="submodule-title">{item.title}</h3>
+              <div
+                className="group-image"
+                style={{
+                  backgroundImage:
+                    `url(${group.image})`
+                }}
+              />
 
-              <div className="submodule-line" />
+              <div className="group-footer">
 
-              <p className="submodule-description">
-                {item.description}
-              </p>
+                <span className="group-title">
+                  {group.title}
+                </span>
+
+                <span
+                  className={`group-arrow ${openGroup === group.id
+                    ? 'open'
+                    : ''
+                    }`}
+                >
+                  ›
+                </span>
+
+              </div>
+
             </div>
 
-            {/* ARROW */}
-            <div className={`submodule-arrow ${!item.active ? 'disabled' : ''}`}>
-              →
-            </div>
+            {openGroup === group.id && (
+
+              <div className="group-content">
+
+                {group.lessons.map((lesson) => {
+
+                  const progress =
+                    getLessonProgress(lesson.id)
+
+                  return (
+
+                    <div
+                      key={lesson.id}
+                      className={`lesson-card ${progress.status}`}
+                      onClick={() => {
+
+                        if (
+                          progress.status === 'locked'
+                        ) {
+                          return
+                        }
+
+                        navigate(
+                          `/lesson/${lesson.slug}`,
+                          {
+                            state: {
+                              returnTo: `/module/${id}`,
+                            },
+                          }
+                        )
+
+                      }}
+                    >
+
+                      <div
+                        className={`lesson-card-image ${progress.status}`}
+                        style={{
+                          backgroundImage:
+                            `url(${lesson.image})`,
+                        }}
+                      />
+
+                      {progress.status === 'locked' && (
+
+                        <div className="lesson-lock">
+
+                          🔒
+
+                        </div>
+
+                      )}
+
+                      <div
+                        className="lesson-card-content"
+                      >
+                        <h4>{lesson.title}</h4>
+
+                        <p>
+                          {lesson.description}
+                        </p>
+
+                        <div className="lesson-footer">
+
+                          <div className="lesson-best">
+
+                            {
+                              progress.bestAccuracy !== null
+                                ? `⭐ Best ${progress.bestAccuracy}%`
+                                : 'New lesson'
+                            }
+
+                          </div>
+
+                          <button
+                            className={`lesson-action ${progress.status}`}
+                            disabled={progress.status === 'locked'}
+                          >
+
+                            {
+                              progress.status === 'completed'
+                                ? '✓ Review'
+                                : progress.status === 'available'
+                                  ? 'Continue'
+                                  : '🔒 Locked'
+                            }
+
+                          </button>
+
+                        </div>
+                      </div>
+
+                    </div>
+
+                  )
+                })}
+
+
+              </div>
+
+            )}
+
           </div>
         ))}
+
       </div>
 
     </div>

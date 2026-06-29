@@ -1,9 +1,11 @@
-import type { Lesson } from '../types'
+import type { Lesson } from '../../types/lesson'
 
 export const intermediate2: Lesson = {
-  id: 'abc-intermediate-2',
+  id: 'alphabet-intermediate-02',
 
-  title: '⭐ Intermediate 2',
+  slug: 'speed-reading',
+  title: 'Speed Reading',
+  image: '/images/alphabet.jpg',
 
   description:
     'Read longer words and improve speed.',

@@ -9,7 +9,7 @@ import { getLessonResult } from '../../utils/results'
 import '../Submodule/Submodule.css'
 
 export const Lesson = () => {
-    const { lessonId } = useParams()
+    const { lessonSlug } = useParams()
     const navigate = useNavigate()
     const location = useLocation()
     const returnTo = location.state?.returnTo ??
@@ -37,7 +37,7 @@ export const Lesson = () => {
         useState(0)
 
     const lesson = alphabetLessons.find(
-        (item) => item.id === lessonId
+        (item) => item.slug === lessonSlug
     )
 
     if (!lesson) {
@@ -144,14 +144,6 @@ export const Lesson = () => {
         wordIndex,
         mode,
     ])
-
-    if (!lesson) {
-        return (
-            <div className="container">
-                Lesson not found
-            </div>
-        )
-    }
 
     const getProgress = () => {
 

@@ -1,9 +1,11 @@
-import type { Lesson } from '../types'
+import type { Lesson } from '../../types/lesson'
 
 export const beginner4: Lesson = {
-  id: 'abc-beginner-4',
+  id: 'alphabet-beginner-04',
 
-  title: '🌱 Beginner 4',
+  slug: 'reading-more',
+  title: 'Reading More',
+  image: '/images/alphabet.jpg',
 
   description:
     'Learn more letters and read bigger words.',

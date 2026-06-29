@@ -15,9 +15,13 @@ export type LessonType =
 export type Lesson = {
   id: string
 
+  slug: string
+
   title: string
 
   description: string
+
+  image: string
 
   type: LessonType
 

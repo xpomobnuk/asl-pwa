@@ -104,6 +104,33 @@ export const Dashboard = () => {
             </p>
           </div>
 
+          <div className="level-progress">
+
+            <div className="level-progress-top">
+
+              <span>
+                Level {level}
+              </span>
+
+              <span>
+                {currentLevelXp}/100 XP
+              </span>
+
+            </div>
+
+            <div className="level-track">
+
+              <div
+                className="level-fill"
+                style={{
+                  width: `${currentLevelXp}%`,
+                }}
+              />
+
+            </div>
+
+          </div>
+
           {/* PLAYER STATS */}
           <div className="player-stats">
 
@@ -164,33 +191,6 @@ export const Dashboard = () => {
               <div className="player-stat-value">
                 {xp}
               </div>
-
-            </div>
-
-          </div>
-
-          <div className="level-progress">
-
-            <div className="level-progress-top">
-
-              <span>
-                Level {level}
-              </span>
-
-              <span>
-                {currentLevelXp}/100 XP
-              </span>
-
-            </div>
-
-            <div className="level-track">
-
-              <div
-                className="level-fill"
-                style={{
-                  width: `${currentLevelXp}%`,
-                }}
-              />
 
             </div>
 

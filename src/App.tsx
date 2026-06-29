@@ -72,7 +72,7 @@ function App() {
         <Route path="/learn" element={<Learn />} />
         <Route path="/word-demo"element={<WordDemo />} />
         <Route path="/abc-beginner" element={<ABCBeginner />} />
-        <Route path="/lesson/:lessonId" element={<Lesson />}/>
+        <Route path="/lesson/:lessonSlug" element={<Lesson />} />
       </Routes>
       <BottomNav />
     </>
