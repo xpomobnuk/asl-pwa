@@ -17,7 +17,7 @@ export const FingerspellWord = ({
     setCurrentIndex(0)
   }, [letters])
 
-  const currentLetter = letters[currentIndex].toLowerCase()
+  const currentLetter = letters[currentIndex]?.toLowerCase()
 
   const handleVideoEnd = () => {
     const isLastLetter = currentIndex === letters.length - 1
@@ -42,11 +42,15 @@ export const FingerspellWord = ({
     }, isLastLetter ? 1500 : 300)
   }
 
+  if (!currentLetter) {
+    return null
+  }
+
   return (
     <div className="fingerspell-word">
 
     <video
-      key={currentLetter}
+      key={`${currentLetter}-${currentIndex}`}
       className={`fingerspell-video ${
         fade ? 'fade' : ''
       }`}
@@ -67,7 +71,7 @@ export const FingerspellWord = ({
 
         {letters.map((letter, index) => (
           <div
-            key={letter}
+            key={`${letter}-${index}`}
             className={`fingerspell-dot ${
               index === currentIndex
                 ? 'active'

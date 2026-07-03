@@ -5,10 +5,10 @@ export const beginner6: Lesson = {
 
   slug: 'quick-recognition',
   title: 'Quick Recognition',
-  image: '/images/alphabet.jpg',
+  image: '/modules/abc/beginner/quick-recognition.svg',
 
   description:
-    'Practice new letters in common short words.',
+    'Practice common words.',
 
   type: 'beginner',
 

@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import type { ModuleGroup } from '../../types/module'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { ROUTES } from '../../routes'
 import {
   beginner1,
   beginner2,
@@ -13,14 +14,21 @@ import {
   intermediate1,
   intermediate2,
 } from '../../lessons/alphabet'
-import { getLessonProgress } from '../../utils/lessonProgress'
+import { auth } from '../../firebase'
+import {
+  getUserProgress,
+  calculateLessonStates,
+} from '../../services/progress'
 import './Module.css'
 
 export const Module = () => {
   const { id } = useParams()
   const navigate = useNavigate()
 
-  const [openGroup, setOpenGroup] = useState('beginner')
+  const [openGroup, setOpenGroup] = useState<string>('')
+  const [progress, setProgress] = useState<
+    Record<string, { accuracy: number }>
+  >({})
 
   const moduleTitle = id === 'alphabet' ? 'Alphabet ABC' : 'Module'
 
@@ -30,7 +38,7 @@ export const Module = () => {
 
       title: 'Beginner',
 
-      image: '/modules/abc/group-beginner.png',
+      image: '/modules/abc/group-beginner.svg',
 
       color: 'blue',
 
@@ -51,7 +59,7 @@ export const Module = () => {
 
       title: 'Intermediate',
 
-      image: '/modules/abc/group-intermediate.png',
+      image: '/modules/abc/group-intermediate.svg',
 
       color: 'yellow',
 
@@ -66,7 +74,7 @@ export const Module = () => {
 
       title: 'Pro',
 
-      image: '/modules/abc/group-pro.png',
+      image: '/modules/abc/group-pro.svg',
 
       color: 'orange',
 
@@ -74,12 +82,42 @@ export const Module = () => {
     },
   ]
 
+  const allLessonIds = groups.flatMap(group =>
+    group.lessons.map(lesson => lesson.id)
+  )
+  const lessonStates =
+    calculateLessonStates(
+      allLessonIds,
+      progress
+    )
+
 
   const totalLessons = groups.reduce(
     (total, group) =>
       total + group.lessons.length,
     0
   )
+
+  useEffect(() => {
+
+    const loadProgress = async () => {
+
+      const user = auth.currentUser
+
+      if (!user) {
+        return
+      }
+
+      const data =
+        await getUserProgress(user.uid)
+
+      setProgress(data)
+
+    }
+
+    loadProgress()
+
+  }, [])
 
 
   return (
@@ -89,7 +127,7 @@ export const Module = () => {
       <div className="module-header">
         <button
           className="btn btn-secondary"
-          onClick={() => navigate(-1)}
+          onClick={() => navigate(ROUTES.LEARN)}
         >
           ← Back
         </button>
@@ -153,27 +191,27 @@ export const Module = () => {
 
                 {group.lessons.map((lesson) => {
 
-                  const progress =
-                    getLessonProgress(lesson.id)
+                  const lessonState =
+                    lessonStates[lesson.id]
 
                   return (
 
                     <div
                       key={lesson.id}
-                      className={`lesson-card ${progress.status}`}
+                      className={`lesson-card ${lessonState.status}`}
                       onClick={() => {
 
                         if (
-                          progress.status === 'locked'
+                          lessonState.status === 'locked'
                         ) {
                           return
                         }
 
                         navigate(
-                          `/lesson/${lesson.slug}`,
+                          ROUTES.LESSON(lesson.slug),
                           {
                             state: {
-                              returnTo: `/module/${id}`,
+                              returnTo: ROUTES.MODULE(id!),
                             },
                           }
                         )
@@ -182,18 +220,34 @@ export const Module = () => {
                     >
 
                       <div
-                        className={`lesson-card-image ${progress.status}`}
+                        className={`lesson-card-image ${lessonState.status}`}
                         style={{
                           backgroundImage:
                             `url(${lesson.image})`,
                         }}
                       />
 
-                      {progress.status === 'locked' && (
+                      {lessonState.status === 'locked' && (
 
                         <div className="lesson-lock">
 
-                          🔒
+                          <img
+                            src="/modules/submodules/locked.svg"
+                            alt="Locked lesson"
+                          />
+
+                        </div>
+
+                      )}
+
+                      {lessonState.status === 'completed' && (
+
+                        <div className="lesson-complete">
+
+                          <img
+                            src="/modules/submodules/complete.svg"
+                            alt="Completed lesson"
+                          />
 
                         </div>
 
@@ -204,6 +258,8 @@ export const Module = () => {
                       >
                         <h4>{lesson.title}</h4>
 
+                        <div className="lesson-title-line" />
+
                         <p>
                           {lesson.description}
                         </p>
@@ -212,26 +268,72 @@ export const Module = () => {
 
                           <div className="lesson-best">
 
-                            {
-                              progress.bestAccuracy !== null
-                                ? `⭐ Best ${progress.bestAccuracy}%`
-                                : 'New lesson'
-                            }
+                            {lessonState.bestAccuracy !== null ? (
+                              <>
+                                <img
+                                  src="/modules/submodules/score.svg"
+                                  alt=""
+                                  className="lesson-best-icon"
+                                />
+
+                                <div className="lesson-best-info">
+
+                                  <span>
+                                    Best {lessonState.bestAccuracy}%
+                                  </span>
+
+                                  {lessonState.status !== 'completed' && (
+                                    <small>
+                                      Reach 80% to unlock next lesson
+                                    </small>
+                                  )}
+
+                                </div>
+                              </>
+                            ) : (
+                              <>
+                                <img
+                                  src="/modules/submodules/new.svg"
+                                  alt=""
+                                  className="lesson-best-icon"
+                                />
+
+                                <div className="lesson-best-info">
+
+                                  <span>
+                                    New lesson
+                                  </span>
+
+                                  {lessonState.status === 'locked' && (
+                                    <small>
+                                      Unlock at 80%
+                                    </small>
+                                  )}
+
+                                </div>
+                              </>
+                            )}
 
                           </div>
 
                           <button
-                            className={`lesson-action ${progress.status}`}
-                            disabled={progress.status === 'locked'}
+                            className={`lesson-action ${lessonState.status}`}
+                            disabled={lessonState.status === 'locked'}
                           >
 
-                            {
-                              progress.status === 'completed'
-                                ? '✓ Review'
-                                : progress.status === 'available'
-                                  ? 'Continue'
-                                  : '🔒 Locked'
-                            }
+                            {lessonState.status === 'completed' ? (
+                              <>
+                                <span>Review</span>
+                              </>
+                            ) : lessonState.status === 'available' ? (
+                              <>
+                                <span>Continue</span>
+                              </>
+                            ) : (
+                              <>
+                                <span>Locked</span>
+                              </>
+                            )}
 
                           </button>
 

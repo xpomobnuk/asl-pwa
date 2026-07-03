@@ -196,6 +196,7 @@
   cursor: pointer;
   width: 48%;
   flex-direction: column;
+  position: relative;
 }
 
 .lesson-card-image {
@@ -216,6 +217,7 @@
   margin: 0;
   font-size: 14px;
   opacity: .7;
+  min-height: 42px;
 }
 
 .lesson-progress {
@@ -256,7 +258,7 @@
     transition: .25s;
 }
 .lesson-card.completed {
-    border-color: #35c46a;
+    border-color: #8ed1fc;
 }
 .lesson-card.available {
 
@@ -288,13 +290,14 @@
     position: relative;
 
 }
-.lesson-lock{
+.lesson-lock,
+.lesson-complete {
 
     position:absolute;
 
-    right:12px;
+    right:20px;
 
-    top:12px;
+    top:20px;
 
     width:34px;
 
@@ -328,12 +331,33 @@
 }
 .lesson-best{
 
-    font-size:13px;
+    font-size: 13px;
+    color: #666;
+    font-weight: 600;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
 
-    color:#666;
+}
 
-    font-weight:600;
+.lesson-best-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
 
+.lesson-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.lesson-action-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
 }
 .lesson-action{
 
@@ -382,4 +406,34 @@
 
     cursor:default;
 
+}
+
+.lesson-title-line {
+  width: 44px;
+  height: 4px;
+
+  border-radius: 999px;
+
+  background: linear-gradient(
+    90deg,
+    #FDB400,
+    #FFBE2E
+  );
+
+  margin: 8px 0 12px;
+}
+
+.lesson-best-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.lesson-best-info small {
+  font-size: 11px;
+  color: #8B8B8B;
+  line-height: 1.2;
+}
+.lesson-best-info small {
+    color: #c38d06;
+    font-weight: 600;
 }

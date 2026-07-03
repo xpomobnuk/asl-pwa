@@ -5,10 +5,10 @@ export const beginner4: Lesson = {
 
   slug: 'reading-more',
   title: 'Reading More',
-  image: '/images/alphabet.jpg',
+  image: '/modules/abc/beginner/reading-more.svg',
 
   description:
-    'Learn more letters and read bigger words.',
+    'Read longer words.',
 
   type: 'beginner',
 

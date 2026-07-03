@@ -5,10 +5,10 @@ export const beginner5: Lesson = {
 
   slug: 'everyday-signs',
   title: 'Everyday Signs',
-  image: '/images/alphabet.jpg',
+  image: '/modules/abc/beginner/everyday-signs.svg',
 
   description:
-    'Add useful letters and build everyday words.',
+    'Learn everyday words.',
 
   type: 'beginner',
 

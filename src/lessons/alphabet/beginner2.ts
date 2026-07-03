@@ -6,10 +6,10 @@ export const beginner2: Lesson = {
   slug: 'growing-vocabulary',
   title: 'Growing Vocabulary',
   image:
-    '/images/alphabet.jpg',
+    '/modules/abc/beginner/growing-vocabulary.svg',
 
   description:
-    'Expand your alphabet with new letters and words.',
+    'Learn new letters and words.',
 
   type: 'beginner',
 

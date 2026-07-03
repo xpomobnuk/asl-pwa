@@ -5,10 +5,10 @@ export const beginner8: Lesson = {
 
   slug: 'alphabet-complete',
   title: 'Alphabet Complete',
-  image: '/images/alphabet.jpg',
+  image: '/modules/abc/beginner/alphabet-complete.svg',
 
   description:
-    'Complete the alphabet and master the final letters.',
+    'Complete the alphabet.',
 
   type: 'beginner',
 

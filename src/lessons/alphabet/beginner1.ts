@@ -8,10 +8,10 @@ export const beginner1: Lesson = {
   title: 'First Steps',
 
   image:
-    '/images/alphabet.jpg',
+    '/modules/abc/beginner/first-steps.svg',
 
   description:
-    'Learn your first letters and words.',
+    'Learn your first letters.',
 
   type: 'beginner',
 

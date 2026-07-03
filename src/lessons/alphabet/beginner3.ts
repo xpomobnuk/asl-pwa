@@ -5,10 +5,10 @@ export const beginner3: Lesson = {
 
    slug: 'building-words',
    title: 'Building Words',
-   image: '/images/alphabet.jpg',
+   image: '/modules/abc/beginner/building-words.svg',
 
   description:
-    'Build longer words using familiar letters.',
+    'Build longer words.',
 
   type: 'beginner',
 

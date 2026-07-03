@@ -3,8 +3,11 @@ import { useParams } from 'react-router-dom'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { alphabetLessons } from '../../lessons/alphabet'
 import { FingerspellWord } from '../../components/FingerspellWord/FingerspellWord'
-import { saveReward, completeSubmodule } from '../../utils/rewards'
+import { saveReward } from '../../utils/rewards'
+import { saveLessonResult } from '../../services/progress'
+import { auth } from '../../firebase'
 import { getLessonResult } from '../../utils/results'
+import { ROUTES } from '../../routes'
 
 import '../Submodule/Submodule.css'
 
@@ -12,8 +15,9 @@ export const Lesson = () => {
     const { lessonSlug } = useParams()
     const navigate = useNavigate()
     const location = useLocation()
-    const returnTo = location.state?.returnTo ??
-  '/learn'
+    const returnTo =
+        location.state?.returnTo ??
+        ROUTES.LEARN
 
     const [index, setIndex] =
         useState(0)
@@ -603,19 +607,21 @@ export const Lesson = () => {
                             className="btn-primary"
                             onClick={async () => {
 
-                                await saveReward(
-                                    result.reward
-                                )
+                                await saveReward(result.reward)
 
-                                if (
-                                    result.accuracy >= 90
-                                ) {
-                                    await completeSubmodule(
-                                        lesson.id
+                                const user = auth.currentUser
+
+                                if (user) {
+                                    await saveLessonResult(
+                                        user.uid,
+                                        lesson.id,
+                                        result.accuracy
                                     )
                                 }
 
-                                navigate(returnTo)
+                                navigate(returnTo, {
+                                    replace: true,
+                                })
                             }}
                         >
                             Complete

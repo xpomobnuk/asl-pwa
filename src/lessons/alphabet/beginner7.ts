@@ -5,10 +5,10 @@ export const beginner7: Lesson = {
 
   slug: 'advanced-shapes',
   title: 'Advanced Shapes',
-  image: '/images/alphabet.jpg',
+  image: '/modules/abc/beginner/advanced-shapes.svg',
 
   description:
-    'Learn advanced letters and improve recognition.',
+    'Master advanced letters.',
 
   type: 'beginner',
 
