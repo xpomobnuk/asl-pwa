@@ -20,6 +20,7 @@ export type ModuleLesson = {
 export type ModuleGroup = {
   id: string
   title: string
+  description: string
   image: string
   color: string
 

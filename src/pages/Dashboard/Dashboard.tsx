@@ -2,6 +2,8 @@ import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { auth, db } from '../../firebase'
 import { signOut } from 'firebase/auth'
+import { ROUTES } from '../../routes'
+import { modules } from '../../data/modules'
 
 
 import { doc, getDoc } from 'firebase/firestore'
@@ -18,6 +20,8 @@ export const Dashboard = () => {
   const currentLevelXp = xp % 100
   const [completedModules, setCompletedModules] =
     useState(0)
+
+  const totalModules = modules.length
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -85,36 +89,74 @@ export const Dashboard = () => {
       {hasCompletedOnboarding && (
         <>
 
-          {/* GREETING */}
-          <div className="dashboard-greeting">
-            <button
-              className="logout-button"
-              onClick={async () => {
-                await signOut(auth)
-              }}
-            >
-              Log out
-            </button>
-            <h1 className="dashboard-title">
-              Hi{userName ? `, ${userName}` : ''} 👋
-            </h1>
+          {/* HEADER */}
 
-            <p className="dashboard-subtitle">
-              Continue your ASL learning journey
-            </p>
+          <div className="dashboard-header">
+
+            <div className="dashboard-user">
+
+              <button
+                className="logout-button"
+                onClick={async () => {
+                  await signOut(auth)
+                }}
+              >
+                Log out
+              </button>
+
+              <h1 className="dashboard-title">
+                Hi{userName ? `, ${userName}` : ''} 👋
+              </h1>
+
+              <p className="dashboard-subtitle">
+                Lets keep learning ASL
+              </p>
+
+            </div>
+
+            <div className="dashboard-avatar">
+
+              <img
+                src="/avatar-placeholder.png"
+                alt="Avatar"
+              />
+
+              <div className="dashboard-level-badge">
+                {level}
+              </div>
+
+            </div>
+
           </div>
 
-          <div className="level-progress">
 
-            <div className="level-progress-top">
 
-              <span>
-                Level {level}
-              </span>
 
-              <span>
+          <div className="dashboard-progress">
+
+            <div className="dashboard-progress-top">
+
+              <div>
+
+                <span className="progress-label">
+
+                  Level {level}
+
+                </span>
+
+                <h2>
+
+                  Sign Explorer
+
+                </h2>
+
+              </div>
+
+              <div className="progress-xp">
+
                 {currentLevelXp}/100 XP
-              </span>
+
+              </div>
 
             </div>
 
@@ -132,11 +174,11 @@ export const Dashboard = () => {
           </div>
 
           {/* PLAYER STATS */}
-          <div className="player-stats">
+          <div className="dashboard-stats">
 
-            <div className="player-stat">
+            <div className="dashboard-stat">
 
-              <div className="player-stat-icon">
+              <div className="dashboard-stat-icon">
                 <img
                   src="/statistic-icons/Energy.svg"
                   alt="Learn"
@@ -144,19 +186,19 @@ export const Dashboard = () => {
                 />
               </div>
 
-              <div className="player-stat-label">
+              <div className="dashboard-stat-label">
                 Energy
               </div>
 
-              <div className="player-stat-value">
+              <div className="dashboard-stat-value">
                 {energy}
               </div>
 
             </div>
 
-            <div className="player-stat">
+            <div className="dashboard-stat">
 
-              <div className="player-stat-icon">
+              <div className="dashboard-stat-icon">
                 <img
                   src="/statistic-icons/Level.svg"
                   alt="Learn"
@@ -164,19 +206,19 @@ export const Dashboard = () => {
                 />
               </div>
 
-              <div className="player-stat-label">
+              <div className="dashboard-stat-label">
                 Level
               </div>
 
-              <div className="player-stat-value">
+              <div className="dashboard-stat-value">
                 {level}
               </div>
 
             </div>
 
-            <div className="player-stat">
+            <div className="dashboard-stat">
 
-              <div className="player-stat-icon">
+              <div className="dashboard-stat-icon">
                 <img
                   src="/statistic-icons/Xp.svg"
                   alt="Learn"
@@ -184,11 +226,11 @@ export const Dashboard = () => {
                 />
               </div>
 
-              <div className="player-stat-label">
+              <div className="dashboard-stat-label">
                 Xp
               </div>
 
-              <div className="player-stat-value">
+              <div className="dashboard-stat-value">
                 {xp}
               </div>
 
@@ -197,20 +239,55 @@ export const Dashboard = () => {
           </div>
 
 
-          {/* MODULE STATS */}
-          <div className="stats-card">
+          {/* KEEP LEARNING */}
 
-            <div className="stats-label">
-              Modules completed
+          <div
+            className="continue-card"
+            onClick={() => navigate(ROUTES.MODULE('alphabet'))}
+          >
+
+            <div className="continue-info">
+
+              <div className="continue-progress">
+
+                <span>
+                  Modules <strong>{totalModules}</strong>
+                </span>
+
+                <span>
+                  Completed <strong>{completedModules}</strong>
+                </span>
+
+              </div>
+
+              <h2>
+
+                Keep learning
+
+              </h2>
+
+              <p>
+
+                to unlock more lessons
+
+              </p>
+
             </div>
 
-            <div className="stats-value">
-              {completedModules} / 12
+            <div className="continue-image">
+
+              <img
+                src="/dashboard/continue.svg"
+                alt=""
+              />
+
             </div>
 
-            <p className="stats-text">
-              Keep learning to unlock more lessons.
-            </p>
+            <button className="continue-button">
+
+              ›
+
+            </button>
 
           </div>
 

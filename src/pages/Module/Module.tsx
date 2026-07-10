@@ -30,13 +30,27 @@ export const Module = () => {
     Record<string, { accuracy: number }>
   >({})
 
-  const moduleTitle = id === 'alphabet' ? 'Alphabet ABC' : 'Module'
+  const moduleData = {
+    alphabet: {
+      title: 'Choose Your Level',
+
+      subtitle:
+        'that matches your experience to customize your learning journey.',
+
+      heroImage: '/modules/abc/hero.svg',
+    },
+  }
+  const currentModule =
+    moduleData[id as keyof typeof moduleData]
 
   const groups: ModuleGroup[] = [
     {
       id: 'beginner',
 
       title: 'Beginner',
+
+      description:
+        'Start from the basics',
 
       image: '/modules/abc/group-beginner.svg',
 
@@ -59,6 +73,9 @@ export const Module = () => {
 
       title: 'Intermediate',
 
+      description:
+        'Build on your everyday skills',
+
       image: '/modules/abc/group-intermediate.svg',
 
       color: 'yellow',
@@ -73,6 +90,9 @@ export const Module = () => {
       id: 'pro',
 
       title: 'Pro',
+
+      description:
+        'Master fluent signing',
 
       image: '/modules/abc/group-pro.svg',
 
@@ -133,22 +153,47 @@ export const Module = () => {
         </button>
       </div>
 
-      {/* TITLE */}
-      <h1 className="module-title">{moduleTitle}</h1>
+      {/* HERO */}
 
-      {/* COUNT */}
-      <div className="submodule-lessons">
-        {totalLessons} Lessons
+      <div className="module-hero">
+
+        <img
+          src={currentModule.heroImage}
+          alt={currentModule.title}
+        />
+
       </div>
 
+      {/* TITLE */}
+
+      <h1 className="module-title">
+
+        {currentModule.title}
+
+      </h1>
+
+      <p className="module-subtitle">
+
+        {currentModule.subtitle}
+
+      </p>
+
       {/* LIST */}
+
       <div className="submodules">
 
         {groups.map((group) => (
-          <div key={group.id} className="group-wrap">
+
+          <div
+            key={group.id}
+            className="group-wrap"
+          >
 
             <div
-              className="group-card"
+              className={`group-card ${openGroup === group.id
+                ? 'active'
+                : ''
+                }`}
               onClick={() =>
                 setOpenGroup(
                   openGroup === group.id
@@ -158,28 +203,45 @@ export const Module = () => {
               }
             >
 
-              <div
-                className="group-image"
-                style={{
-                  backgroundImage:
-                    `url(${group.image})`
-                }}
-              />
+              {/* ICON */}
 
-              <div className="group-footer">
+              <div className="group-icon">
 
-                <span className="group-title">
+                <img
+                  src={group.image}
+                  alt={group.title}
+                />
+
+              </div>
+
+              {/* CONTENT */}
+
+              <div className="group-info">
+
+                <h3>
+
                   {group.title}
-                </span>
 
-                <span
-                  className={`group-arrow ${openGroup === group.id
-                    ? 'open'
-                    : ''
-                    }`}
-                >
-                  ›
-                </span>
+                </h3>
+
+                <p>
+
+                  {group.description}
+
+                </p>
+
+              </div>
+
+              {/* ARROW */}
+
+              <div
+                className={`group-arrow ${openGroup === group.id
+                  ? 'open'
+                  : ''
+                  }`}
+              >
+
+                ›
 
               </div>
 
@@ -351,6 +413,7 @@ export const Module = () => {
             )}
 
           </div>
+
         ))}
 
       </div>
