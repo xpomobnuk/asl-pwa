@@ -105,7 +105,12 @@ export const Dashboard = () => {
               </button>
 
               <h1 className="dashboard-title">
-                Hi{userName ? `, ${userName}` : ''} 👋
+                Hi{userName ? `, ${userName}` : ''}
+                <img
+                  src="/dashboard/hand.svg"
+                  alt="hi-hand"
+                  className="dashboard-hand"
+                />
               </h1>
 
               <p className="dashboard-subtitle">
