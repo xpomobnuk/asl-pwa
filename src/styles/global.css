@@ -41,6 +41,18 @@
   font-weight: 700;
 }
 
+@font-face {
+  font-family: "Arial Rounded";
+
+  src:
+    url("./assets/fonts/ArialRounded/ArialRounded-Bold.woff2") format("woff2"),
+    url("./assets/fonts/ArialRounded/ArialRounded-Bold.woff") format("woff");
+
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ===== RESET ===== */
 
 *,

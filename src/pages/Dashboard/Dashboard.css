@@ -301,14 +301,14 @@
 .dashboard-stat-value {
   margin-top: 4px;
 
-  font-size: 34px;
-
+  font-size: 24px;
   font-weight: 800;
+  font-family: "Arial Rounded", sans-serif;
 }
 
 .dashboard-progress {
       background-color: #FFF8ED;
-    padding: 20px 10px;
+    padding: 20px;
     border-radius: 18px;
     border: 1px solid #FDB400;
 }
@@ -646,7 +646,7 @@
 .level-fill {
   height: 100%;
 
-  background: #ff8a3d;
+  background: #FDBC11;
 
   border-radius: 999px;
 
@@ -754,11 +754,10 @@
   cursor: pointer;
 
   transition: .2s;
-  font-size: 23px;
   padding-left: 3px;
-  padding-bottom: 3px;
+    padding-bottom: 1px;
 }
 
 .continue-button img {
-  width: 16px;
+  width: 7px;
 }

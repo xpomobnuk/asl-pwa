@@ -285,7 +285,10 @@ export const Dashboard = () => {
 
             <button className="continue-button">
 
-              ›
+              <img
+                src="/dashboard/continue-button.svg"
+                alt="continue-button"
+              />
 
             </button>
 

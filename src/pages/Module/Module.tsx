@@ -136,16 +136,6 @@ export const Module = () => {
   return (
     <div className="container module-page">
 
-      {/* HEADER */}
-      <div className="module-header">
-        <button
-          className="btn btn-secondary"
-          onClick={() => navigate(ROUTES.LEARN)}
-        >
-          ← Back
-        </button>
-      </div>
-
       {/* HERO */}
 
       <div className="module-hero">
@@ -409,6 +399,16 @@ export const Module = () => {
 
         ))}
 
+      </div>
+
+      {/* HEADER */}
+      <div className="module-header">
+        <button
+          className="btn btn-secondary"
+          onClick={() => navigate(ROUTES.LEARN)}
+        >
+          ← Back
+        </button>
       </div>
 
     </div>
