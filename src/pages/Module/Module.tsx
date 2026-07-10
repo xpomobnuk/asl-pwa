@@ -34,8 +34,10 @@ export const Module = () => {
     alphabet: {
       title: 'Choose Your Level',
 
-      subtitle:
-        'that matches your experience to customize your learning journey.',
+      subtitle: [
+        'that matches your experience',
+        'to customize your learning journey.',
+      ],
 
       heroImage: '/modules/abc/hero.svg',
     },
@@ -157,7 +159,11 @@ export const Module = () => {
 
       <p className="module-subtitle">
 
-        {currentModule.subtitle}
+        {currentModule.subtitle.map((line) => (
+          <span key={line}>
+            {line}
+          </span>
+        ))}
 
       </p>
 

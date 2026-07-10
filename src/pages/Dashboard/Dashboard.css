@@ -265,7 +265,7 @@
   height: auto;
   display: inline-block;
   transform-origin: bottom left;
-  animation: hand-wave 2.8s ease-in-out infinite;
+  /* animation: hand-wave 2.8s ease-in-out infinite; */
 }
 
 @keyframes hand-wave {
@@ -352,10 +352,10 @@
 }
 
 .dashboard-progress {
-      background-color: #FFF8ED;
-    padding: 20px;
+        background-color: #fdb400;
+    border: 1px solid #fdb400;
     border-radius: 18px;
-    border: 1px solid #FDB400;
+    padding: 20px;
 }
 
 .dashboard-progress-top {
@@ -682,7 +682,7 @@
 .level-track {
   height: 10px;
 
-  background: #ececec;
+  background: #fbe08f;
 
   border-radius: 999px;
 
@@ -692,7 +692,7 @@
 .level-fill {
   height: 100%;
 
-  background: #FDBC11;
+  background: #fff;
 
   border-radius: 999px;
 
