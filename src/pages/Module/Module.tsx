@@ -111,13 +111,6 @@ export const Module = () => {
       progress
     )
 
-
-  const totalLessons = groups.reduce(
-    (total, group) =>
-      total + group.lessons.length,
-    0
-  )
-
   useEffect(() => {
 
     const loadProgress = async () => {
