@@ -7,15 +7,17 @@ export type LessonWord = {
   word: string
   letters: string[]
 }
+
 export type LessonType =
   | 'beginner'
   | 'intermediate'
 
-
-export type Lesson = {
+export type AlphabetLessonData = {
   id: string
 
   slug: string
+
+  engine: 'alphabet'
 
   title: string
 

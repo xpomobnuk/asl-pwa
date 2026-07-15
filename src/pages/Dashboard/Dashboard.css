@@ -788,9 +788,6 @@
   border: none;
 
   border-radius: 50%;
-
-  background: #FDB400;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -805,5 +802,5 @@
 }
 
 .continue-button img {
-  width: 7px;
+  width: 10px;
 }

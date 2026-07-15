@@ -122,7 +122,7 @@ export const Dashboard = () => {
             <div className="dashboard-avatar">
 
               <img
-                src="/avatar-placeholder.png"
+                src="/dashboard/default-avatar.png"
                 alt="Avatar"
               />
 

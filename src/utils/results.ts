@@ -54,7 +54,7 @@ export const getLessonResult = (
 
   if (accuracy >= 75) {
     heroImage =
-      '/characters/hero_2.png'
+      '/characters/green_success.gif'
   }
 
   return {

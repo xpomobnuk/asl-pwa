@@ -1,6 +1,6 @@
-import type { Lesson } from '../../types/lesson'
+import type { AlphabetLessonData } from '../../types/lesson'
 
-export const beginner4: Lesson = {
+export const beginner4: AlphabetLessonData = {
   id: 'alphabet-beginner-04',
 
   slug: 'reading-more',
@@ -11,6 +11,7 @@ export const beginner4: Lesson = {
     'Read longer words.',
 
   type: 'beginner',
+  engine: "alphabet",
 
   letters: [
     {
