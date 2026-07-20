@@ -9,6 +9,7 @@ export type LessonWord = {
 }
 
 export type VocabularyWord = {
+  id: string
   word: string
   video: string
 }
@@ -45,12 +46,6 @@ export type VocabularyLessonData = {
   engine: 'vocabulary'
 
   title: string
-
-  description: string
-
-  image: string
-
-  type: LessonType
 
   words: VocabularyWord[]
 }

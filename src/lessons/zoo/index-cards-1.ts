@@ -1,6 +1,6 @@
 import type {
   VocabularyLessonData,
-} from '../../lesson-engines/vocabulary/types'
+} from '../../types/lesson'
 
 export const zooIndexCards1: VocabularyLessonData = {
 
