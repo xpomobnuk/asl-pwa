@@ -86,7 +86,6 @@ export const VocabularyLesson = ({
       return (
 
         <VocabularyReview
-          lesson={lesson}
           failedWords={failedWords}
           onComplete={() =>
             setStep('finish')

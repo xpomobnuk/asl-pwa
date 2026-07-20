@@ -1,4 +1,4 @@
-import type { Lesson } from './lesson'
+import type { LessonData } from './lesson'
 
 export type LessonStatus =
   | 'completed'
@@ -24,5 +24,5 @@ export type ModuleGroup = {
   image: string
   color: string
 
-  lessons: Lesson[]
+  lessons: LessonData[]
 }

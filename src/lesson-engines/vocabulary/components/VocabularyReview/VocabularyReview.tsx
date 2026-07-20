@@ -9,15 +9,11 @@ import type {
 import './VocabularyReview.css'
 
 type Props = {
-  lesson: VocabularyLessonData
-
   failedWords: VocabularyLessonData['words']
-
   onComplete: () => void
 }
 
 export const VocabularyReview = ({
-  lesson,
   failedWords,
   onComplete,
 }: Props) => {
