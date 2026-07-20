@@ -7,7 +7,7 @@ import { VocabularyReview } from './components/VocabularyReview/VocabularyReview
 
 import type {
   VocabularyLessonData,
-} from './types'
+} from '../../types/lesson'
 
 type Props = {
   lesson: VocabularyLessonData
