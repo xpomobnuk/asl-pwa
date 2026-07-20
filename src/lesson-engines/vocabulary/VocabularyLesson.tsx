@@ -1,6 +1,9 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import { VocabularyIntro } from './components/VocabularyIntro/VocabularyIntro'
+import { VocabularyRecall } from './components/VocabularyRecall/VocabularyRecall'
+import { VocabularyReview } from './components/VocabularyReview/VocabularyReview'
 
 import type {
   VocabularyLessonData,
@@ -23,6 +26,21 @@ export const VocabularyLesson = ({
   const [step, setStep] =
     useState<VocabularyStep>('intro')
 
+  const [failedWords, setFailedWords] =
+    useState<VocabularyLessonData['words']>([])
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+
+    if (step !== 'finish') {
+      return
+    }
+
+    navigate('/module/zoo')
+
+  }, [step, navigate])
+
   switch (step) {
 
     case 'intro':
@@ -42,11 +60,24 @@ export const VocabularyLesson = ({
 
       return (
 
-        <div>
+        <VocabularyRecall
+          lesson={lesson}
+          onComplete={(failedWords) => {
 
-          Recall step
+            if (failedWords.length === 0) {
 
-        </div>
+              setStep('finish')
+
+              return
+
+            }
+
+            setFailedWords(failedWords)
+
+            setStep('review')
+
+          }}
+        />
 
       )
 
@@ -54,25 +85,19 @@ export const VocabularyLesson = ({
 
       return (
 
-        <div>
-
-          Review step
-
-        </div>
+        <VocabularyReview
+          lesson={lesson}
+          failedWords={failedWords}
+          onComplete={() =>
+            setStep('finish')
+          }
+        />
 
       )
 
     case 'finish':
 
-      return (
-
-        <div>
-
-          Finish lesson
-
-        </div>
-
-      )
+      return null
 
     default:
 

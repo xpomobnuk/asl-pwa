@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import { VocabularyVideo } from '../VocabularyVideo/VocabularyVideo'
 
@@ -20,6 +20,11 @@ export const VocabularyIntro = ({
 
   const [currentIndex, setCurrentIndex] =
     useState(0)
+  const [videoFinished, setVideoFinished] =
+    useState(false)
+
+  const [canContinue, setCanContinue] =
+    useState(false)
 
   const currentWord =
     lesson.words[currentIndex]
@@ -31,6 +36,10 @@ export const VocabularyIntro = ({
 
     if (!isLastWord) {
 
+      setVideoFinished(false)
+
+      setCanContinue(false)
+
       setCurrentIndex(prev => prev + 1)
 
       return
@@ -41,38 +50,107 @@ export const VocabularyIntro = ({
 
   }
 
+  useEffect(() => {
+
+    if (!videoFinished) {
+      return
+    }
+
+    const timer = setTimeout(() => {
+
+      setCanContinue(true)
+
+    }, 180)
+
+    return () => clearTimeout(timer)
+
+  }, [videoFinished])
+
   return (
 
     <div className="vocabulary-intro">
 
       <div className="vocabulary-progress">
 
-        {currentIndex + 1}
-        {' / '}
-        {lesson.words.length}
+        <div className="vocabulary-progress-top">
+
+          <span>
+
+            {currentIndex + 1} of {lesson.words.length}
+
+          </span>
+
+          <span>
+
+            {Math.round(
+              ((currentIndex + 1) / lesson.words.length) * 100
+            )}%
+
+          </span>
+
+        </div>
+
+        <div className="vocabulary-progress-track">
+
+          <div
+            className="vocabulary-progress-fill"
+            style={{
+              width: `${((currentIndex + 1) / lesson.words.length) * 100
+                }%`,
+            }}
+          />
+
+        </div>
 
       </div>
 
-      <VocabularyVideo
-        src={currentWord.video}
-      />
+      <div className='vocabulary-card'>
+        <VocabularyVideo
+          src={currentWord.video}
+          onEnded={() => {
 
-      <div className="vocabulary-word">
+            setVideoFinished(true)
 
-        {currentWord.word}
+          }}
+        />
 
+        <div className="vocabulary-word">
+
+          {currentWord.word.toUpperCase()}
+
+        </div>
+
+        <p className="vocabulary-caption">
+
+          Watch the sign carefully.
+
+        </p>
       </div>
 
-      <button
-        className="btn btn-primary"
-        onClick={handleNext}
-      >
+      <div className="vocabulary-action">
 
-        {isLastWord
-          ? 'Continue'
-          : 'Next'}
+        <div
+          className={`vocabulary-hint ${canContinue ? 'hide' : ''
+            }`}
+        >
 
-      </button>
+          Watch the full sign to continue
+
+        </div>
+
+        <button
+          className={`btn btn-primary vocabulary-next-button ${canContinue ? 'show' : ''
+            }`}
+          onClick={handleNext}
+        >
+
+          {isLastWord
+            ? 'Continue'
+            : 'Next Sign'}
+
+        </button>
+
+      </div>
 
     </div>
 

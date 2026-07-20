@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom'
-import { alphabet } from '../../data/alphabet'
+import { alphabet } from '../../data/alphabetDictionary'
 import './Letter.css'
 
 export const Letter = () => {

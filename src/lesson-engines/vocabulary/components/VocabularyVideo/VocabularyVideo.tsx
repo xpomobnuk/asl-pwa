@@ -1,74 +1,91 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
+
+import './VocabularyVideo.css'
 
 type Props = {
-    src: string
-    autoPlay?: boolean
+  src: string
+  autoPlay?: boolean
+  onEnded?: () => void
 }
 
 export const VocabularyVideo = ({
-    src,
+  src,
+  autoPlay = false,
+  onEnded,
 }: Props) => {
 
-    const videoRef =
-        useRef<HTMLVideoElement>(null)
+  const videoRef =
+    useRef<HTMLVideoElement>(null)
 
-    const [isPlaying, setIsPlaying] =
-        useState(false)
+  const [isPlaying, setIsPlaying] =
+    useState(false)
 
-    const handlePlay = () => {
+  useEffect(() => {
 
-        if (!videoRef.current) {
-            return
-        }
-
-        videoRef.current.currentTime = 0
-
-        videoRef.current.play()
-
-        setIsPlaying(true)
-
+    if (!autoPlay || !videoRef.current) {
+      return
     }
 
-    return (
+    videoRef.current.currentTime = 0
+    videoRef.current.play()
 
-        <div className="vocabulary-video-wrap">
+  }, [src, autoPlay])
 
-            <video
-                ref={videoRef}
-                className="vocabulary-video"
-                src={src}
-                muted
-                playsInline
-                onPlay={() => {
+  const handlePlay = () => {
 
-                    setIsPlaying(true)
+    if (!videoRef.current) {
+      return
+    }
 
-                }}
-                onEnded={() => {
+    videoRef.current.currentTime = 0
 
-                    setIsPlaying(false)
+    videoRef.current.play()
 
-                }}
-            />
+  }
 
-            {!isPlaying && (
+  return (
 
-                <button
-                    className="vocabulary-video-overlay"
-                    onClick={handlePlay}
-                >
+    <div className="vocabulary-video-card">
 
-                    <img
-                        src="/icons/video-play.png"
-                        alt=""
-                    />
+      <video
+        ref={videoRef}
+        className="vocabulary-video"
+        src={src}
+        muted
+        playsInline
+        onPlay={() => {
 
-                </button>
+          setIsPlaying(true)
 
-            )}
+        }}
+        onEnded={() => {
+
+          setIsPlaying(false)
+
+          onEnded?.()
+
+        }}
+      />
+
+      <button
+        className={`vocabulary-video-overlay ${isPlaying ? 'hidden' : ''
+          }`}
+        onClick={handlePlay}
+      >
+
+        <div className="vocabulary-play-circle">
+
+          <img
+            src="/icons/play.svg"
+            alt="Play"
+          />
 
         </div>
 
-    )
+      </button>
+
+    </div>
+
+  )
 
 }

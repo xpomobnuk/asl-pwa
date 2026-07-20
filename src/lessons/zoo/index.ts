@@ -1,0 +1,1 @@
+export { zooIndexCards1 } from './index-cards-1'

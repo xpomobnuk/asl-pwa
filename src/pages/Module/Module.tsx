@@ -1,19 +1,8 @@
 import { useParams, useNavigate } from 'react-router-dom'
-import type { ModuleGroup } from '../../types/module'
 import { useEffect, useState } from 'react'
 import { ROUTES } from '../../routes'
-import {
-  beginner1,
-  beginner2,
-  beginner3,
-  beginner4,
-  beginner5,
-  beginner6,
-  beginner7,
-  beginner8,
-  intermediate1,
-  intermediate2,
-} from '../../lessons/alphabet'
+import { moduleGroups } from '../../data/moduleGroups'
+import { moduleData } from '../../data/moduleData'
 import { auth } from '../../firebase'
 import {
   getUserProgress,
@@ -30,79 +19,13 @@ export const Module = () => {
     Record<string, { accuracy: number }>
   >({})
 
-  const moduleData = {
-    alphabet: {
-      title: 'Choose Your Level',
-
-      subtitle: [
-        'that matches your experience',
-        'to customize your learning journey.',
-      ],
-
-      heroImage: '/modules/abc/hero.svg',
-    },
-  }
   const currentModule =
     moduleData[id as keyof typeof moduleData]
 
-  const groups: ModuleGroup[] = [
-    {
-      id: 'beginner',
-
-      title: 'Beginner',
-
-      description:
-        'Start from the basics',
-
-      image: '/modules/abc/group-beginner.svg',
-
-      color: 'blue',
-
-      lessons: [
-        beginner1,
-        beginner2,
-        beginner3,
-        beginner4,
-        beginner5,
-        beginner6,
-        beginner7,
-        beginner8,
-      ],
-    },
-
-    {
-      id: 'intermediate',
-
-      title: 'Intermediate',
-
-      description:
-        'Build on your everyday skills',
-
-      image: '/modules/abc/group-intermediate.svg',
-
-      color: 'yellow',
-
-      lessons: [
-        intermediate1,
-        intermediate2,
-      ],
-    },
-
-    {
-      id: 'pro',
-
-      title: 'Pro',
-
-      description:
-        'Master fluent signing',
-
-      image: '/modules/abc/group-pro.svg',
-
-      color: 'orange',
-
-      lessons: [],
-    },
-  ]
+const groups =
+  moduleGroups[
+    id as keyof typeof moduleGroups
+  ] ?? []
 
   const allLessonIds = groups.flatMap(group =>
     group.lessons.map(lesson => lesson.id)

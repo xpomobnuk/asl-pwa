@@ -30,37 +30,37 @@ export const zooIndexCards1: VocabularyLessonData = {
             video: '/videos/zoo/zebra.mp4',
         },
 
-        {
-            id: 'penguin',
+        // {
+        //     id: 'penguin',
 
-            word: 'Penguin',
+        //     word: 'Penguin',
 
-            video: '/videos/zoo/penguin.mp4',
-        },
+        //     video: '/videos/zoo/penguin.mp4',
+        // },
 
-        {
-            id: 'elephant',
+        // {
+        //     id: 'elephant',
 
-            word: 'Elephant',
+        //     word: 'Elephant',
 
-            video: '/videos/zoo/elephant.mp4',
-        },
+        //     video: '/videos/zoo/elephant.mp4',
+        // },
 
-        {
-            id: 'bear',
+        // {
+        //     id: 'bear',
 
-            word: 'Bear',
+        //     word: 'Bear',
 
-            video: '/videos/zoo/bear.mp4',
-        },
+        //     video: '/videos/zoo/bear.mp4',
+        // },
 
-        {
-            id: 'capricorn',
+        // {
+        //     id: 'capricorn',
 
-            word: 'Capricorn',
+        //     word: 'Capricorn',
 
-            video: '/videos/zoo/capricorn.mp4',
-        },
+        //     video: '/videos/zoo/capricorn.mp4',
+        // },
 
     ],
 

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { alphabet } from '../../data/alphabet'
+import { alphabet } from '../../data/alphabetDictionary'
 
 import './Alphabet.css'
 
