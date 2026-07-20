@@ -1,5 +1,5 @@
 import type {
-  VocabularyLessonData,
+    VocabularyLessonData,
 } from '../../types/lesson'
 
 export const zooIndexCards1: VocabularyLessonData = {
@@ -8,9 +8,15 @@ export const zooIndexCards1: VocabularyLessonData = {
 
     slug: 'zoo-index-cards-01',
 
-    engine: "vocabulary",
+    engine: 'vocabulary',
 
     title: 'Index Cards',
+
+    description: 'Learn zoo animal signs.',
+
+    image: '/modules/zoo/index-cards.svg',
+
+    type: 'beginner',
 
     words: [
 

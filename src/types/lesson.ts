@@ -47,6 +47,12 @@ export type VocabularyLessonData = {
 
   title: string
 
+  description: string
+
+  image: string
+
+  type: LessonType
+
   words: VocabularyWord[]
 }
 

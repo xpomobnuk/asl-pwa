@@ -4,7 +4,7 @@ import { VocabularyVideo } from '../VocabularyVideo/VocabularyVideo'
 
 import type {
   VocabularyLessonData,
-} from '../../types'
+} from '../../../../types/lesson'
 
 import './VocabularyIntro.css'
 
