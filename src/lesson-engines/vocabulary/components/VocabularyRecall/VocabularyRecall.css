@@ -50,13 +50,11 @@
 }
 
 .correct-word {
-
     display: inline-block;
-
     color: #8BC34A;
-
     animation: answerReveal .28s ease;
-
+    font-size: 25px;
+    font-weight: 700;
 }
 
 @keyframes answerReveal {
@@ -78,16 +76,6 @@
             translateY(0) scale(1);
 
     }
-
-}
-
-.vocabulary-tools {
-
-    display: flex;
-
-    justify-content: center;
-
-    margin-top: 16px;
 
 }
 
@@ -129,4 +117,28 @@
         opacity .25s ease,
         visibility .25s;
 
+}
+
+.vocabulary-recall-panel {
+    margin-top: 18px;
+    text-align: center;
+}
+
+.vocabulary-recall-panel h2 {
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.vocabulary-recall-panel p {
+    font-size: 13px;
+    color: #8A8A8A;
+}
+.vocabulary-recall-tools {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+}
+
+.vocabulary-recall-tools > * {
+    flex: 1;
 }

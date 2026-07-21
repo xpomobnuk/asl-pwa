@@ -1,0 +1,45 @@
+.vocabulary-progress {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+
+}
+
+.vocabulary-progress-top {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    font-size: 14px;
+
+    color: #8A8A8A;
+
+}
+
+.vocabulary-progress-track {
+
+    height: 8px;
+
+    border-radius: 999px;
+
+    background: #ECECEC;
+
+    overflow: hidden;
+
+}
+
+.vocabulary-progress-fill {
+
+    height: 100%;
+
+    width: 0;
+
+    background: #FFC933;
+
+    transition: width .35s ease;
+
+}

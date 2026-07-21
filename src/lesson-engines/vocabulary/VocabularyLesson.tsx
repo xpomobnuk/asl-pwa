@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom'
 
 import { VocabularyIntro } from './components/VocabularyIntro/VocabularyIntro'
 import { VocabularyRecall } from './components/VocabularyRecall/VocabularyRecall'
-import { VocabularyReview } from './components/VocabularyReview/VocabularyReview'
 
 import type {
   VocabularyLessonData,
@@ -16,7 +15,6 @@ type Props = {
 type VocabularyStep =
   | 'intro'
   | 'recall'
-  | 'review'
   | 'finish'
 
 export const VocabularyLesson = ({
@@ -25,9 +23,6 @@ export const VocabularyLesson = ({
 
   const [step, setStep] =
     useState<VocabularyStep>('intro')
-
-  const [failedWords, setFailedWords] =
-    useState<VocabularyLessonData['words']>([])
 
   const navigate = useNavigate()
 
@@ -62,31 +57,6 @@ export const VocabularyLesson = ({
 
         <VocabularyRecall
           lesson={lesson}
-          onComplete={(failedWords) => {
-
-            if (failedWords.length === 0) {
-
-              setStep('finish')
-
-              return
-
-            }
-
-            setFailedWords(failedWords)
-
-            setStep('review')
-
-          }}
-        />
-
-      )
-
-    case 'review':
-
-      return (
-
-        <VocabularyReview
-          failedWords={failedWords}
           onComplete={() =>
             setStep('finish')
           }

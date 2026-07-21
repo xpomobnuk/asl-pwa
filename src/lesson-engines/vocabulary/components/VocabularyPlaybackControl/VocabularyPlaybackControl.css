@@ -1,0 +1,6 @@
+.vocabulary-playback-btn {
+    flex: 1;
+}
+.vocabulary-playback-btn.active {
+    background: #FBEBC2;
+}

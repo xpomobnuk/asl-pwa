@@ -61,7 +61,7 @@
 
     text-align: center;
 
-    font-size: 15px;
+    font-size: 13px;
 
     color: #8A8A8A;
 
@@ -79,17 +79,6 @@
 
     align-items: center;
     flex-wrap: wrap;
-
-}
-
-.vocabulary-hint,
-.vocabulary-next-button {
-
-    position: absolute;
-
-    transition:
-        opacity .3s ease,
-        transform .3s ease;
 
 }
 
@@ -117,67 +106,23 @@
 
 }
 
-.vocabulary-next-button {
-
-    opacity: 0;
-
-    transform: translateY(6px);
-
-    pointer-events: none;
+.btn-secondary{
+    margin-bottom: 15px;
 
 }
-
-.vocabulary-next-button.show {
-
-    opacity: 1;
-
-    transform: translateY(0);
-
-    pointer-events: auto;
-
-}
-.vocabulary-progress {
-
+.btn-replay{
     display: flex;
-
-    flex-direction: column;
-
+    justify-content: center;
+    align-items: center;
     gap: 10px;
-
 }
-
-.vocabulary-progress-top {
-
-    display: flex;
-
-    justify-content: space-between;
-
-    font-size: 14px;
-
-    color: #8A8A8A;
-
-}
-
-.vocabulary-progress-track {
-
-    height: 8px;
-
-    border-radius: 999px;
-
-    background: #ECECEC;
-
-    overflow: hidden;
-
-}
-
-.vocabulary-progress-fill {
-
+.btn-replay img{
+    width: 17px;
     height: 100%;
+}
 
-    width: 0;
-
-    background: #FFC933;
-
-    transition: width .35s ease;
-
+.vocabulary-tools {
+    display: flex;
+    gap: 12px;
+    width: 100%;
 }

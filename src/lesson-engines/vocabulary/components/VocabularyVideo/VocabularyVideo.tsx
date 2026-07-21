@@ -1,4 +1,10 @@
-import { useRef, useState, useEffect } from 'react'
+import {
+  forwardRef,
+  useRef,
+  useState,
+  useEffect,
+  useImperativeHandle,
+} from 'react'
 
 import './VocabularyVideo.css'
 
@@ -8,11 +14,19 @@ type Props = {
   onEnded?: () => void
 }
 
-export const VocabularyVideo = ({
+export type VocabularyVideoHandle = {
+  replay: () => void
+  setPlaybackRate: (rate: number) => void
+}
+
+export const VocabularyVideo = forwardRef<
+  VocabularyVideoHandle,
+  Props
+>(({
   src,
   autoPlay = false,
   onEnded,
-}: Props) => {
+}, ref) => {
 
   const videoRef =
     useRef<HTMLVideoElement>(null)
@@ -21,6 +35,12 @@ export const VocabularyVideo = ({
     useState(false)
 
   useEffect(() => {
+
+    setIsPlaying(false)
+
+    if (videoRef.current) {
+      videoRef.current.playbackRate = 1
+    }
 
     if (!autoPlay || !videoRef.current) {
       return
@@ -42,6 +62,31 @@ export const VocabularyVideo = ({
     videoRef.current.play()
 
   }
+
+  useImperativeHandle(ref, () => ({
+
+    replay() {
+
+      if (!videoRef.current) {
+        return
+      }
+
+      videoRef.current.currentTime = 0
+      videoRef.current.play()
+
+    },
+
+    setPlaybackRate(rate: number) {
+
+      if (!videoRef.current) {
+        return
+      }
+
+      videoRef.current.playbackRate = rate
+
+    },
+
+  }))
 
   return (
 
@@ -88,4 +133,4 @@ export const VocabularyVideo = ({
 
   )
 
-}
+})

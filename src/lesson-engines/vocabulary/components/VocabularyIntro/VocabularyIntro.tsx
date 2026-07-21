@@ -1,6 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useRef, useState } from 'react'
+import { VocabularyProgress } from '../VocabularyProgress/VocabularyProgress'
+import { VocabularyPlaybackControl } from '../VocabularyPlaybackControl/VocabularyPlaybackControl'
 
-import { VocabularyVideo } from '../VocabularyVideo/VocabularyVideo'
+import {
+  VocabularyVideo,
+  type VocabularyVideoHandle,
+} from '../VocabularyVideo/VocabularyVideo'
 
 import type {
   VocabularyLessonData,
@@ -20,11 +25,13 @@ export const VocabularyIntro = ({
 
   const [currentIndex, setCurrentIndex] =
     useState(0)
-  const [videoFinished, setVideoFinished] =
+
+  const [isSlow, setIsSlow] =
     useState(false)
 
-  const [canContinue, setCanContinue] =
-    useState(false)
+  const videoRef =
+    useRef<VocabularyVideoHandle>(null)
+
 
   const currentWord =
     lesson.words[currentIndex]
@@ -33,85 +40,27 @@ export const VocabularyIntro = ({
     currentIndex === lesson.words.length - 1
 
   const handleNext = () => {
-
     if (!isLastWord) {
-
-      setVideoFinished(false)
-
-      setCanContinue(false)
-
       setCurrentIndex(prev => prev + 1)
-
+      setIsSlow(false)
       return
-
     }
 
     onComplete()
-
   }
-
-  useEffect(() => {
-
-    if (!videoFinished) {
-      return
-    }
-
-    const timer = setTimeout(() => {
-
-      setCanContinue(true)
-
-    }, 180)
-
-    return () => clearTimeout(timer)
-
-  }, [videoFinished])
 
   return (
 
     <div className="vocabulary-intro">
 
-      <div className="vocabulary-progress">
-
-        <div className="vocabulary-progress-top">
-
-          <span>
-
-            {currentIndex + 1} of {lesson.words.length}
-
-          </span>
-
-          <span>
-
-            {Math.round(
-              ((currentIndex + 1) / lesson.words.length) * 100
-            )}%
-
-          </span>
-
-        </div>
-
-        <div className="vocabulary-progress-track">
-
-          <div
-            className="vocabulary-progress-fill"
-            style={{
-              width: `${((currentIndex + 1) / lesson.words.length) * 100
-                }%`,
-            }}
-          />
-
-        </div>
-
-      </div>
-
+      <VocabularyProgress
+        current={currentIndex + 1}
+        total={lesson.words.length}
+      />
       <div className='vocabulary-card'>
         <VocabularyVideo
+          ref={videoRef}
           src={currentWord.video}
-          onEnded={() => {
-
-            setVideoFinished(true)
-
-          }}
         />
 
         <div className="vocabulary-word">
@@ -129,25 +78,39 @@ export const VocabularyIntro = ({
 
       <div className="vocabulary-action">
 
-        <div
-          className={`vocabulary-hint ${canContinue ? 'hide' : ''
-            }`}
-        >
 
-          Watch the full sign to continue
+        <div className="vocabulary-tools">
+
+          <button
+            className="btn btn-secondary vocabulary-replay-button btn-replay"
+            onClick={() => videoRef.current?.replay()}
+          >
+            <img src="/icons/replay.svg" alt="replay" />
+            Replay
+          </button>
+
+          <VocabularyPlaybackControl
+            isSlow={isSlow}
+            onToggle={() => {
+
+              const nextIsSlow = !isSlow
+
+              videoRef.current?.setPlaybackRate(
+                nextIsSlow ? 0.75 : 1
+              )
+
+              setIsSlow(nextIsSlow)
+
+            }}
+          />
 
         </div>
 
         <button
-          className={`btn btn-primary vocabulary-next-button ${canContinue ? 'show' : ''
-            }`}
+          className="btn btn-primary vocabulary-next-button"
           onClick={handleNext}
         >
-
-          {isLastWord
-            ? 'Continue'
-            : 'Next Sign'}
-
+          {isLastWord ? 'Continue' : 'Next Sign →'}
         </button>
 
       </div>

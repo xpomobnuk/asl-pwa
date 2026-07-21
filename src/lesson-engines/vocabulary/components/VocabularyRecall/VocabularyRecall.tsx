@@ -1,6 +1,11 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import { VocabularyProgress } from '../VocabularyProgress/VocabularyProgress'
+import { VocabularyPlaybackControl } from '../VocabularyPlaybackControl/VocabularyPlaybackControl'
 
-import { VocabularyVideo } from '../VocabularyVideo/VocabularyVideo'
+import {
+    VocabularyVideo,
+    type VocabularyVideoHandle,
+} from '../VocabularyVideo/VocabularyVideo'
 
 import type {
     VocabularyLessonData,
@@ -12,9 +17,7 @@ type Props = {
 
     lesson: VocabularyLessonData
 
-    onComplete: (
-        failedWords: VocabularyLessonData['words']
-    ) => void
+    onComplete: () => void
 
 }
 
@@ -23,13 +26,14 @@ export const VocabularyRecall = ({
     onComplete,
 }: Props) => {
 
-    const [state, setState] =
-        useState<'question' | 'answer'>(
-            'question'
-        )
-
     const [currentIndex, setCurrentIndex] =
         useState(0)
+
+    const [isSlow, setIsSlow] =
+        useState(false)
+
+    const videoRef =
+        useRef<VocabularyVideoHandle>(null)
 
     type AnswerDisplay =
         | 'hidden'
@@ -38,9 +42,6 @@ export const VocabularyRecall = ({
 
     const [answerDisplay, setAnswerDisplay] =
         useState<AnswerDisplay>('hidden')
-
-    const [failedWords, setFailedWords] =
-        useState<VocabularyLessonData['words']>([])
 
     const currentWord =
         lesson.words[currentIndex]
@@ -53,33 +54,9 @@ export const VocabularyRecall = ({
 
         setCurrentIndex(prev => prev + 1)
 
-        setState('question')
-
         setAnswerDisplay('hidden')
 
-    }
-
-    const handleNotYet = () => {
-
-        const updatedFailedWords = [
-
-            ...failedWords,
-
-            currentWord,
-
-        ]
-
-        if (isLastWord) {
-
-            onComplete(updatedFailedWords)
-
-            return
-
-        }
-
-        setFailedWords(updatedFailedWords)
-
-        handleNext()
+        setIsSlow(false)
 
     }
 
@@ -87,7 +64,7 @@ export const VocabularyRecall = ({
 
         if (isLastWord) {
 
-            onComplete(failedWords)
+            onComplete()
 
             return
 
@@ -97,79 +74,87 @@ export const VocabularyRecall = ({
 
     }
 
-    const handleRemembered = () => {
-
-        setState('answer')
-
-        setAnswerDisplay('answer')
-
-    }
-
     return (
 
         <div className="vocabulary-recall">
 
-            <div className="vocabulary-progress">
-
-                {currentIndex + 1}
-                {' / '}
-                {lesson.words.length}
-
-            </div>
+            <VocabularyProgress
+                current={currentIndex + 1}
+                total={lesson.words.length}
+            />
 
             <div className="vocabulary-card">
 
                 <VocabularyVideo
+                    ref={videoRef}
                     src={currentWord.video}
                 />
 
-                <div
-                    className={`vocabulary-answer-box ${answerDisplay === 'answer'
-                        ? 'success'
-                        : ''
-                        }`}
-                >
+                <div className="vocabulary-recall-panel">
 
-                    <div className="vocabulary-answer-text">
+                    {answerDisplay === 'hidden' && (
 
-                        {answerDisplay === 'hidden' && '?'}
+                        <>
 
-                        {answerDisplay === 'hint' && (
+                            <h2>
 
-                            <>
+                                What does this sign mean?
+
+                            </h2>
+
+                            <p>
+
+                                Try to recall the word.
+
+                            </p>
+
+                        </>
+
+                    )}
+
+                    {answerDisplay === 'hint' && (
+
+                        <>
+
+                            <div className="vocabulary-answer-text">
+
                                 {currentWord.word[0].toUpperCase()}
                                 {'_'.repeat(currentWord.word.length - 1)}
-                            </>
 
-                        )}
+                            </div>
 
-                        {answerDisplay === 'answer' && (
+                            <p>
 
-                            <span className="correct-word">
+                                The word starts with{' '}
+
+                                {currentWord.word[0].toUpperCase()}.
+
+                            </p>
+
+                        </>
+
+                    )}
+
+                    {answerDisplay === 'answer' && (
+
+                        <>
+
+                            <div className="correct-word">
 
                                 {currentWord.word.toUpperCase()}
 
-                            </span>
+                            </div>
 
-                        )}
+                            <p>
 
-                    </div>
+                                Watch the sign again and
+                                compare it with your answer.
 
-                </div>
+                            </p>
 
-                <div className="vocabulary-tools">
+                        </>
 
-                    <button
-                        className={`vocabulary-hint-btn ${state === 'answer'
-                                ? 'btn-hidden'
-                                : ''
-                            }`}
-                        onClick={() => setAnswerDisplay('hint')}
-                    >
-
-                        💡 Hint
-
-                    </button>
+                    )}
 
                 </div>
 
@@ -177,32 +162,75 @@ export const VocabularyRecall = ({
 
             <div className="vocabulary-recall-actions">
 
-                <button
-                    className={`btn btn-secondary ${state === 'answer'
-                        ? 'btn-hidden'
-                        : ''
-                        }`}
-                    onClick={handleNotYet}
-                >
+                <div className="vocabulary-recall-tools">
 
-                    Not Yet
+                    {answerDisplay === 'hidden' ? (
 
-                </button>
+                        <button
+                            className="btn btn-secondary vocabulary-hint-btn"
+                            onClick={() => setAnswerDisplay('hint')}
+                        >
+
+                            💡 Hint
+
+                        </button>
+
+                    ) : (
+
+                        <button
+                            className="btn btn-secondary vocabulary-hint-btn btn-replay"
+                            onClick={() =>
+                                videoRef.current?.replay()
+                            }
+                        >
+                            <img src="/icons/replay.svg" alt="replay" />
+                            Replay
+
+                        </button>
+
+                    )}
+
+                    <VocabularyPlaybackControl
+                        isSlow={isSlow}
+                        onToggle={() => {
+
+                            const nextIsSlow = !isSlow
+
+                            videoRef.current?.setPlaybackRate(
+                                nextIsSlow ? 0.75 : 1
+                            )
+
+                            setIsSlow(nextIsSlow)
+
+                        }}
+                    />
+
+                </div>
 
                 <button
                     className="btn btn-primary"
-                    onClick={
-                        state === 'question'
-                            ? handleRemembered
-                            : handleNextAfterRemembered
-                    }
+                    onClick={() => {
+
+                        if (answerDisplay === 'answer') {
+
+                            handleNextAfterRemembered()
+
+                            return
+
+                        }
+
+                        setAnswerDisplay('answer')
+
+                    }}
                 >
 
-                    {state === 'question'
-                        ? 'Remembered'
-                        : isLastWord
-                            ? 'Finish Recall'
-                            : 'Next Sign →'}
+                    {answerDisplay === 'answer'
+                        ? (
+                            isLastWord
+                                ? 'Finish Recall'
+                                : 'Next Sign →'
+                        )
+                        : 'Show Answer'}
 
                 </button>
 
