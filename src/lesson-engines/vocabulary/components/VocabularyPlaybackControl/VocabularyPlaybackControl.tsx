@@ -19,7 +19,7 @@ export const VocabularyPlaybackControl = ({
             onClick={onToggle}
         >
            <img src="/icons/slow.svg" alt="slow" />
-           {isSlow ? '0.75x' : '1x'}
+           {isSlow ? '0.6x' : '1x'}
 
         </button>
 

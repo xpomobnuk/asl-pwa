@@ -96,7 +96,7 @@ export const VocabularyIntro = ({
               const nextIsSlow = !isSlow
 
               videoRef.current?.setPlaybackRate(
-                nextIsSlow ? 0.75 : 1
+                nextIsSlow ? 0.6 : 1
               )
 
               setIsSlow(nextIsSlow)
